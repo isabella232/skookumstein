@@ -141,6 +141,8 @@
       var sy = 0;
 
       this._ctx.drawImage(texture, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+
+      // TODO: need to use even integers and draw columns without overlapped anti-aliasing
       this._ctx.fillStyle = 'rgba(0,0,0,' + shadow + ')';
       this._ctx.fillRect(x - 2, y - 1, width + 4, height + 2);
     }

@@ -3,7 +3,7 @@
   var ns = window[namespace] = window[namespace] || {};
 
   function Config() {
-    this.loadBundle('55');
+    this.loadBundle('56');
     this.listen();
   }
 
@@ -60,7 +60,7 @@
 
       // 5
       '53': {
-        topdown: true,
+        topdown: false,
         raycaster: true,
         map: true,
         npcs: false,
@@ -88,7 +88,19 @@
         raycaster: true,
         map: false,
         npcs: false,
-        segments: 128,
+        segments: 100,
+        intersections: true,
+        textures: true,
+        lighting: true
+      },
+
+      // 8
+      '56': {
+        topdown: false,
+        raycaster: true,
+        map: false,
+        npcs: false,
+        segments: 256,
         intersections: true,
         textures: true,
         lighting: true

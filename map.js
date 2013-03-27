@@ -12,8 +12,12 @@
 
     offX: 600,
     offY: 600,
+    scaleX: 1,
+    scaleY: 1,
 
     walls: [
+      [375, 305, 375, 375, 'wood_wall'], // outside fake enclosure left
+      [675, 305, 675, 375, 'wood_wall'], // outside fake enclosure right
       [550, 305, 575, 305, 'wood_wall'], // outside wall right
       [475, 305, 450, 305, 'wood_wall'], // outside wall left
       [375, 305, 450, 305, 'wood_wall'], // outside wall far left
@@ -25,7 +29,20 @@
       [450, 200, 450, 205, 'wall'],  // skookum logo wall side
       [475, 270, 470, 270, 'wall'], // entry wall left wood side
       [470, 270, 470, 300, 'wall'],
-      [470, 300, 375, 300, 'wall'] // wall to left of Melissa
+      [470, 300, 375, 300, 'wall'], // wall to left of Melissa
+      [375, 300, 375, 225, 'red_wall'], // red wall behind Melissa
+      [375, 225, 370, 225, 'wall'],
+      [370, 225, 370, 300, 'wall'],  // left wall of lounge
+      [370, 300, 275, 300, 'charlotte_poster'], // back wall of lounge
+      [275, 300, 275, 225, 'tv'], // tv in lounge
+      [275, 225, 225, 175, 'door'], // door to design room
+      [225, 175, 275, 125, 'door'], // door to conference room
+      [275, 125, 325, 125, 'wall'], // left wall blocking kitchen
+      [325, 125, 325, 120, 'wall'], // left wall blocking kitchen side
+      [325, 120, 275, 120, 'wall'], // left wall blocking kitchen inner
+      [300, 120, 300, 90, 'fridge1_front'], // front of black fridge
+      [300, 90, 275, 90, 'fridge1_side'], // side of black fridge
+      [275, 120, 275, 50, 'wall'], // wall to right of black fridge
 
       /*[200, 100, 100, 100, 'skookum_poster'],
       [200, 100, 200, 200, 'x'],
@@ -40,7 +57,13 @@
       'skookum_poster': 'textures/skookum_poster.jpg',
       'wall': 'textures/wall.jpg',
       'skookum_wall': 'textures/skookum_wall.jpg',
-      'wood_wall': 'textures/wood_wall.jpg'
+      'wood_wall': 'textures/wood_wall.jpg',
+      'red_wall': 'textures/red_wall.jpg',
+      'charlotte_poster': 'textures/charlotte_poster_wall.jpg',
+      'tv': 'textures/tv_wall.jpg',
+      'door': 'textures/door.png',
+      'fridge1_front': 'textures/fridge1.png',
+      'fridge1_side': 'textures/fridge1_side.png'
     },
 
     texture: function(name) {
@@ -59,10 +82,10 @@
     applyOffsets: function() {
       var i = this.walls.length;
       while (i--) {
-        this.walls[i][0] -= this.offX;
-        this.walls[i][1] -= this.offY;
-        this.walls[i][2] -= this.offX;
-        this.walls[i][3] -= this.offY;
+        this.walls[i][0] = (this.walls[i][0] - this.offX) * this.scaleX;
+        this.walls[i][1] = (this.walls[i][1] - this.offY) * this.scaleY;
+        this.walls[i][2] = (this.walls[i][2] - this.offX) * this.scaleX;
+        this.walls[i][3] = (this.walls[i][3] - this.offY) * this.scaleY;
       }
     }
 
