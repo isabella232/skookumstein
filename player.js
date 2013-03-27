@@ -69,6 +69,15 @@
             default: return true;
           }
           return false;
+        })
+        .on('touchstart', function(e) {
+
+        })
+        .on('touchmove', function(e) {
+          return false;
+        })
+        .on('touchend', function(e) {
+
         });
     },
 

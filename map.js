@@ -42,7 +42,8 @@
       [325, 120, 275, 120, 'wall'], // left wall blocking kitchen inner
       [300, 120, 300, 90, 'fridge1_front'], // front of black fridge
       [300, 90, 275, 90, 'fridge1_side'], // side of black fridge
-      [275, 120, 275, 50, 'wall'], // wall to right of black fridge
+      [275, 120, 275, 25, 'wall'], // wall to right of black fridge
+      [275, 25, 325, 25, 'window'], // left kitchen window
 
       /*[200, 100, 100, 100, 'skookum_poster'],
       [200, 100, 200, 200, 'x'],
@@ -51,6 +52,8 @@
       [-100, -100, 200, -100, 'wall'],
       [-100, -100, -100, 200, 'wall']*/
     ],
+
+    // TODO: automatically build a transparency mask for the shadow overlays for each
 
     textures: {
       'x': 'textures/x.jpg',
@@ -63,7 +66,8 @@
       'tv': 'textures/tv_wall.jpg',
       'door': 'textures/door.png',
       'fridge1_front': 'textures/fridge1.png',
-      'fridge1_side': 'textures/fridge1_side.png'
+      'fridge1_side': 'textures/fridge1_side.png',
+      'window': 'textures/window.png'
     },
 
     texture: function(name) {
