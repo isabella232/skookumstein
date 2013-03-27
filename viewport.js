@@ -121,7 +121,7 @@
       this._ctx.fillRect(x, y, width + 1, height);
     },
 
-    textureCol: function(index, total, distance, texture) {
+    textureCol: function(index, total, distance, texture, textureRatio) {
       if (distance === Infinity) return;
       var width = this._el.width / total;
       var x = width * index;
@@ -129,7 +129,12 @@
       var y = (this._el.height - height) * 0.5;
       var bright = Math.floor(255 * Math.max(0, Math.min(1, height / this._el.height)));
 
-      this._ctx.drawImage(texture, x, y, width + 1, height);
+      var sWidth = 1;
+      var sHeight = texture.height;
+      var sx = Math.min(texture.width - sWidth, Math.max(0, textureRatio * texture.width));
+      var sy = 0;
+
+      this._ctx.drawImage(texture, sx, sy, sWidth, sHeight, x, y, width + 1, height);
     }
   };
 

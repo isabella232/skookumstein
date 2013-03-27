@@ -14,6 +14,8 @@
   var KEY_STRAFE_RIGHT = 68;
 
   var DEG_TO_RAD = Math.PI / 180;
+  var NO_DIVIDE_BY_ZERO = 0.00001;
+
   var TURN_SPEED = 0.1 * DEG_TO_RAD;
   var WALK_SPEED = 0.4;
   var REVERSE_SPEED = 0.2;
@@ -108,6 +110,8 @@
       };
     },
 
+    // TODO: wow. refactor.
+
     trace: function(walls, segments) {
       var intersections = [];
       var a0 = this.angle - this.fov * 0.5;
@@ -119,6 +123,7 @@
         var point = {};
         var hit;
         var texture;
+        var textureRatio;
         var x1 = this.x;
         var y1 = this.y;
         var x2 = this.x + Math.cos(angle) * RAY_DISTANCE;
@@ -127,17 +132,31 @@
         while (i--) {
           var wall = walls[i];
           hit = intersect(x1, y1, x2, y2, wall[0], wall[1], wall[2], wall[3]);
+
           if (hit) {
             var dx = hit.x - x1;
             var dy = hit.y - y1;
             var hyp = Math.sqrt(dx * dx + dy * dy);
-            var rightAngle = Math.PI * 0.5;
             var relativeAngle = angle - this.angle;
-            var dist = hyp * Math.sin(rightAngle - relativeAngle);
+            var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
+
             if (dist < closest) {
               closest = dist;
               point = hit;
               texture = wall[4];
+
+              var wallDx = Math.abs(hit.x - wall[0]) + NO_DIVIDE_BY_ZERO;
+              var wallDy = Math.abs(hit.y - wall[1]) + NO_DIVIDE_BY_ZERO;
+
+              // TODO: precompute
+              var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
+              var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
+              var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
+              var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
+
+              textureRatio = textureDistance / wallLength;
+
+              //if (textureRatio < 0 || textureRatio > 1) debugger;
             }
           }
         }
@@ -147,7 +166,8 @@
           dist: closest,
           rayX: x2,
           rayY: y2,
-          texture: texture
+          texture: texture,
+          textureRatio: textureRatio
         });
       }
 

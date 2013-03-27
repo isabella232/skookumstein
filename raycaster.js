@@ -27,7 +27,7 @@
       if (ns.Config.textures) {
         for (i = 0; i < segments; i++) {
           var inter = intersections[i];
-          this.viewport.textureCol(i, segments, inter.dist, this.map.texture(inter.texture));
+          this.viewport.textureCol(i, segments, inter.dist, this.map.texture(inter.texture), inter.textureRatio);
         }
         return;
       }
