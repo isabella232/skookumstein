@@ -60,7 +60,7 @@
 
       // 5
       '53': {
-        topdown: false,
+        topdown: true,
         raycaster: true,
         map: true,
         npcs: false,
@@ -74,12 +74,12 @@
       '54': {
         topdown: false,
         raycaster: true,
-        map: false,
+        map: true,
         npcs: false,
         segments: 128,
         intersections: true,
         textures: false,
-        lighting: true
+        lighting: false
       },
 
       // 7
@@ -88,14 +88,26 @@
         raycaster: true,
         map: false,
         npcs: false,
-        segments: 100,
+        segments: 128,
         intersections: true,
-        textures: true,
+        textures: false,
         lighting: true
       },
 
       // 8
       '56': {
+        topdown: false,
+        raycaster: true,
+        map: false,
+        npcs: false,
+        segments: 128,
+        intersections: true,
+        textures: true,
+        lighting: true
+      },
+
+      // 9
+      '57': {
         topdown: false,
         raycaster: true,
         map: false,

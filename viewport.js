@@ -100,7 +100,7 @@
       var height = this._el.height / (distance * SCALE);
       var y = (this._el.height - height) * 0.5;
 
-      this._ctx.strokeStyle = '#ccc';
+      this._ctx.strokeStyle = '#000';
       this._ctx.strokeWidth = 1;
       this._ctx.fillStyle = '#888';
       this._ctx.beginPath();
