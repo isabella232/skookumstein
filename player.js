@@ -28,9 +28,9 @@
   Player.prototype = {
 
     setDefaults: function() {
-      this.x = 0;
-      this.y = 0;
-      this.angle = 0;
+      this.x = -100;
+      this.y = -150;
+      this.angle = -RIGHT_ANGLE;
       this.fov = 70 * DEG_TO_RAD;
       this.turningLeft = false;
       this.turningRight = false;

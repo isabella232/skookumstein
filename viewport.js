@@ -3,8 +3,8 @@
   var ns = window[namespace] = window[namespace] || {};
 
   var SCALE = 0.01;
-  var CEILING_COLOR = '#ccc';
-  var FLOOR_COLOR = '#543';
+  var CEILING_COLOR = '#9c8f73';
+  var FLOOR_COLOR = '#531';
 
   function Viewport(canvasElement) {
     this._el = canvasElement;
@@ -117,9 +117,15 @@
       var y = (this._el.height - height) * 0.5;
       var bright = Math.floor(255 * Math.max(0, Math.min(1, height / this._el.height)));
 
-      this._ctx.fillStyle = 'rgba(' + bright + ',' + bright + ',' + bright + ',255)';
+      this._ctx.fillStyle = 'rgba(' + bright + ',' + bright + ',' + bright + ',1)';
       this._ctx.fillRect(x, y, width + 1, height);
     },
+
+    // TODO: by drawing columns totally independent of a rendering loop,
+    // it's impossible to guarantee that all pixels are filled horizontally
+    // without any overlap... it would be better to create some kind of loop
+    // and pass explicit x and width values into the column drawing routine instead
+    // of index and total
 
     textureCol: function(index, total, distance, texture, textureRatio) {
       if (distance === Infinity) return;
@@ -127,14 +133,16 @@
       var x = width * index;
       var height = this._el.height / (distance * SCALE);
       var y = (this._el.height - height) * 0.5;
-      var bright = Math.floor(255 * Math.max(0, Math.min(1, height / this._el.height)));
+      var shadow = 1 - Math.max(0, Math.min(1, height / this._el.height));
 
       var sWidth = 1;
       var sHeight = texture.height;
       var sx = Math.min(texture.width - sWidth, Math.max(0, textureRatio * texture.width));
       var sy = 0;
 
-      this._ctx.drawImage(texture, sx, sy, sWidth, sHeight, x, y, width + 1, height);
+      this._ctx.drawImage(texture, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+      this._ctx.fillStyle = 'rgba(0,0,0,' + shadow + ')';
+      this._ctx.fillRect(x - 2, y - 1, width + 4, height + 2);
     }
   };
 
