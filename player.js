@@ -169,10 +169,13 @@
           }
         }
         hits.sort(sortDistance);
-        var depth = 0;
-        var j = 1;
+        var depth = 0, j = 1;
         while (j < hits.length && map.transparent(hits[j].texture)) j++;
-        intersections.push(hits.slice(0, j));
+        intersections.push({
+          hits: hits.slice(0, j),
+          rayX: x2,
+          rayY: y2
+        });
       }
 
       this.intersections = intersections;

@@ -13,19 +13,10 @@
     player = new ns.Player();
     viewport = new ns.Viewport(document.getElementById('viewport'));
     map = new ns.Map();
-    topdown = new ns.Topdown();
-    raycaster = new ns.Raycaster();
+    topdown = new ns.Topdown(viewport);
+    raycaster = new ns.Raycaster(viewport);
     gameloop = new ns.Gameloop();
     jim = new ns.Npc('jim');
-
-    topdown.viewport = viewport;
-    topdown.map = map;
-    topdown.npcs = [jim];
-    topdown.player = player;
-
-    raycaster.viewport = viewport;
-    raycaster.npcs = [jim];
-    raycaster.player = player;
   }
 
   function start() {
@@ -38,7 +29,7 @@
 
     viewport.clear();
     raycaster.render(map, player.intersections);
-    topdown.render(map);
+    topdown.render(player, map, player.intersections);
   }
 
 })('skookum');
