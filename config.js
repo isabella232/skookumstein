@@ -3,7 +3,7 @@
   var ns = window[namespace] = window[namespace] || {};
 
   function Config() {
-    this.loadBundle('57');
+    this.loadBundle('113');
     this.listen();
   }
 
@@ -18,8 +18,9 @@
         npcs: false,
         segments: 1,
         intersections: false,
+        columns: 'flat',
         textures: false,
-        lighting: false
+        shadows: false
       },
 
       // 2
@@ -30,8 +31,9 @@
         npcs: false,
         segments: 1,
         intersections: false,
+        columns: 'flat',
         textures: false,
-        lighting: false
+        shadows: false
       },
 
       // 3
@@ -42,8 +44,9 @@
         npcs: false,
         segments: 8,
         intersections: true,
+        columns: 'flat',
         textures: false,
-        lighting: false
+        shadows: false
       },
 
       // 4
@@ -54,8 +57,9 @@
         npcs: false,
         segments: 8,
         intersections: true,
+        columns: 'flat',
         textures: false,
-        lighting: false
+        shadows: false
       },
 
       // 5
@@ -66,8 +70,9 @@
         npcs: false,
         segments: 128,
         intersections: true,
+        columns: 'flat',
         textures: false,
-        lighting: false
+        shadows: false
       },
 
       // 6
@@ -78,8 +83,9 @@
         npcs: false,
         segments: 128,
         intersections: true,
+        columns: 'flat',
         textures: false,
-        lighting: false
+        shadows: false
       },
 
       // 7
@@ -90,8 +96,9 @@
         npcs: false,
         segments: 128,
         intersections: true,
+        columns: 'deep',
         textures: false,
-        lighting: true
+        shadows: false
       },
 
       // 8
@@ -102,8 +109,9 @@
         npcs: false,
         segments: 128,
         intersections: true,
+        columns: 'textured',
         textures: true,
-        lighting: true
+        shadows: false
       },
 
       // 9
@@ -112,10 +120,39 @@
         raycaster: true,
         map: false,
         npcs: false,
+        segments: 128,
+        intersections: true,
+        columns: 'textured',
+        textures: false,
+        shadows: true
+      },
+
+      // Q
+      '113': {
+        topdown: false,
+        raycaster: true,
+        map: false,
+        npcs: false,
         segments: 256,
         intersections: true,
+        columns: 'textured',
         textures: true,
-        lighting: true
+        shadows: true
+      },
+
+      // W
+      '119': {
+
+      },
+
+      // E
+      '101': {
+
+      },
+
+      // R
+      '114': {
+
       }
     },
 
