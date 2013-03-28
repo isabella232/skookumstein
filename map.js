@@ -6,7 +6,7 @@
     this.images = {};             // The images that are drawn as the base layers for textures
     this.shadows = {};            // Shadows masked to mimic the transparencies of textures
     this.transparencies = {};     // Flag telling us whether or not we should paint behind this texture
-    this.applyOffsetsAndScale();
+    this.preprocess();
     this.loadTextures();
   }
 
@@ -39,9 +39,9 @@
       [275, 300, 275, 225, 'tv'], // tv in lounge
       [275, 225, 225, 175, 'door'], // door to design room
       [225, 175, 275, 125, 'door'], // door to conference room
-      [275, 125, 325, 125, 'wall'], // left wall blocking kitchen
-      [325, 125, 325, 120, 'wall'], // left wall blocking kitchen side
-      [325, 120, 275, 120, 'wall'], // left wall blocking kitchen inner
+      [275, 125, 335, 125, 'wall'], // left wall blocking kitchen
+      [335, 125, 335, 120, 'wall'], // left wall blocking kitchen side
+      [335, 120, 275, 120, 'wall'], // left wall blocking kitchen inner
       [300, 120, 300, 90, 'fridge1_front'], // front of black fridge
       [300, 90, 275, 90, 'fridge1_side'], // side of black fridge
       [275, 120, 275, 25, 'red_wall'], // wall to right of black fridge
@@ -76,7 +76,11 @@
       'fridge1_side': 'textures/fridge1_side.png',
       'window': 'textures/window.png',
       'desk_side': 'textures/desk_side.png',
-      'red_wall': 'textures/red_wall_empty.jpg'
+      'red_wall': 'textures/red_wall_empty.jpg',
+    },
+
+    panorama: {
+      texture: 'textures/skyline.jpg'
     },
 
     // todo: return an object with 'image' 'shadow' and 'transparent'
@@ -138,13 +142,25 @@
       }
     },
 
-    applyOffsetsAndScale: function() {
+    // TODO: this feels clunky
+
+    preprocess: function() {
       var i = this.walls.length;
       while (i--) {
         this.walls[i][0] = (this.walls[i][0] - this.offX) * this.scaleX;
         this.walls[i][1] = (this.walls[i][1] - this.offY) * this.scaleY;
         this.walls[i][2] = (this.walls[i][2] - this.offX) * this.scaleX;
         this.walls[i][3] = (this.walls[i][3] - this.offY) * this.scaleY;
+        if (typeof this.walls[i][4] === 'object') {
+          this.walls[i].texture = this.walls[i][4].texture;
+          this.walls[i].scaleY = this.walls[i][4].scaleY;
+          this.walls[i].shadow = this.walls[i][4].shadow;
+        } else {
+          this.walls[i].texture = this.walls[i][4];
+          this.walls[i].scaleY = 1;
+          this.walls[i].shadow = true;
+        }
+        delete this.walls[i][4];
       }
     }
 

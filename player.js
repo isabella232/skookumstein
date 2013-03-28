@@ -155,7 +155,7 @@
             var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
             var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
             var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
-            var textureRatio = textureDistance / wallLength;
+            var wallRatio = textureDistance / wallLength;
 
             hits.push({
               x: hit.x,
@@ -163,8 +163,8 @@
               dist: dist,
               rayX: x2,
               rayY: y2,
-              texture: wall[4],
-              textureRatio: textureRatio
+              wall: wall,
+              wallRatio: wallRatio
             });
           }
         }

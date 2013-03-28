@@ -21,8 +21,7 @@
           var hits = rays[i].hits;
           for (j = hits.length - 1; j >= 0; j--) {
             hit = hits[j];
-            texture = map.texture(hit.texture);
-            this.viewport.textureCol(i, segments, hit.dist, texture, hit.textureRatio);
+            this.viewport.textureCol(i, segments, map, hit);
           }
         }
         return;

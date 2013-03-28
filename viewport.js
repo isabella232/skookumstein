@@ -127,26 +127,24 @@
     // and pass explicit x and width values into the column drawing routine instead
     // of index and total
 
-    // TODO: woah lots of arguments
-
     // TODO: better to pass in the X and WIDTH and use those to derive the angle etc
 
-    textureCol: function(index, total, distance, texture, textureRatio) {
-      if (distance === Infinity) return;
+    textureCol: function(index, total, map, hit) {
       var width = this._el.width / total;
       var x = width * index;
-      var height = this._el.height / (distance * SCALE);
+      var height = (this._el.height / (hit.dist * SCALE)) * hit.wall.scaleY;
       var y = (this._el.height - height) * 0.5;
-      var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
 
+      var texture = map.texture(hit.wall.texture);
       var sWidth = 1;
       var sHeight = texture.image.height;
-      var sx = Math.min(texture.image.width - sWidth, Math.max(0, textureRatio * texture.image.width));
+      var sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.wallRatio * texture.image.width));
       var sy = 0;
 
       this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
 
-      if (texture.shadow) {
+      if (texture.shadow && hit.wall.shadow) {
+        var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
         this._ctx.globalAlpha = shadowLevel;
         this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
         this._ctx.globalAlpha = 1;
