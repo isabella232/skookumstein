@@ -3,8 +3,9 @@
   var ns = window[namespace] = window[namespace] || {};
 
   function Map() {
-    this.images = {};
-    this.shadows = {};
+    this.images = {};             // The images that are drawn as the base layers for textures
+    this.shadows = {};            // Shadows masked to mimic the transparencies of textures
+    this.transparencies = {};     // Flag telling us whether or not we should paint behind this texture
     this.applyOffsetsAndScale();
     this.loadTextures();
   }
@@ -31,9 +32,9 @@
       [475, 270, 470, 270, 'wall'], // entry wall left wood side
       [470, 270, 470, 300, 'wall'],
       [470, 300, 375, 300, 'wall'], // wall to left of Melissa
-      [375, 300, 375, 225, 'red_wall'], // red wall behind Melissa
-      [375, 225, 370, 225, 'wall'],
-      [370, 225, 370, 300, 'wall'],  // left wall of lounge
+      [375, 300, 375, 225, 'red_wall_boxes'], // red wall behind Melissa
+      [375, 225, 370, 225, 'red_wall'], // side edge of lounge on left
+      [370, 225, 370, 300, 'red_wall'],  // left wall of lounge
       [370, 300, 275, 300, 'charlotte_poster'], // back wall of lounge
       [275, 300, 275, 225, 'tv'], // tv in lounge
       [275, 225, 225, 175, 'door'], // door to design room
@@ -43,8 +44,13 @@
       [325, 120, 275, 120, 'wall'], // left wall blocking kitchen inner
       [300, 120, 300, 90, 'fridge1_front'], // front of black fridge
       [300, 90, 275, 90, 'fridge1_side'], // side of black fridge
-      [275, 120, 275, 25, 'wall'], // wall to right of black fridge
+      [275, 120, 275, 25, 'red_wall'], // wall to right of black fridge
       [275, 25, 325, 25, 'window'], // left kitchen window
+      [400, 230, 425, 230, 'desk_side'],  // right side of Melissa's desk
+      [440, 250, 440, 300, 'desk_side'],  // left side of Melissa's desk
+      [440, 250, 425, 230, 'desk_side'],  // corner of Melissa's desk
+      [400, 230, 400, 240, 'desk_side'],  // side edge of Melissa's desk
+      [425, 250, 425, 300, 'desk_side'],  // inside edge of Melissa's desk
 
       /*[200, 100, 100, 100, 'skookum_poster'],
       [200, 100, 200, 200, 'x'],
@@ -62,21 +68,32 @@
       'wall': 'textures/wall.jpg',
       'skookum_wall': 'textures/skookum_wall.jpg',
       'wood_wall': 'textures/wood_wall.jpg',
-      'red_wall': 'textures/red_wall.jpg',
+      'red_wall_boxes': 'textures/red_wall.jpg',
       'charlotte_poster': 'textures/charlotte_poster_wall.jpg',
       'tv': 'textures/tv_wall.jpg',
       'door': 'textures/door.png',
       'fridge1_front': 'textures/fridge1.png',
       'fridge1_side': 'textures/fridge1_side.png',
-      'window': 'textures/window.png'
+      'window': 'textures/window.png',
+      'desk_side': 'textures/desk_side.png',
+      'red_wall': 'textures/red_wall_empty.jpg'
     },
 
+    // todo: return an object with 'image' 'shadow' and 'transparent'
     texture: function(name) {
-      return this.images[name];
+      return {
+        image: this.images[name],
+        shadow: this.shadows[name],
+        transparent: this.transparencies[name] || true
+      };
     },
 
     shadow: function(name) {
       return this.shadows[name];
+    },
+
+    transparent: function(name) {
+      return this.transparencies[name] || true;
     },
 
     loadTextures: function() {
@@ -99,6 +116,7 @@
         var ctx = canvas.getContext('2d');
         var width = newImage.width;
         var height = newImage.height;
+        var transparent = false;
 
         canvas.width = width;
         canvas.height = height;
@@ -110,11 +128,13 @@
           for (var x = 0; x < width; x++) {
             var i = (y * width + x) * 4;
             pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = 0;
+            if (!transparent && pixels.data[i + 3] < 255) trnasparent = true;
           }
         }
 
         ctx.putImageData(pixels, 0, 0);
         self.shadows[key] = canvas;
+        self.transparencies[key] = transparent;
       }
     },
 

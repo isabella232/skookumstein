@@ -121,23 +121,22 @@
 
     // TODO: wow. refactor.
 
-    trace: function(walls, segments) {
+    trace: function(map, segments) {
+      var walls = map.walls;
       var intersections = [];
       var a0 = this.angle - this.fov * 0.5;
       var da = this.fov / segments;
       var a1 = this.angle + this.fov * 0.5 + 0.01;
 
       for (var angle = a0; angle <= a1; angle += da) {
-        var closest = Infinity;
-        var point = {};
+        var hits = [];
         var hit;
-        var texture;
-        var textureRatio;
         var x1 = this.x;
         var y1 = this.y;
         var x2 = this.x + Math.cos(angle) * RAY_DISTANCE;
         var y2 = this.y + Math.sin(angle) * RAY_DISTANCE;
         var i = walls.length;
+
         while (i--) {
           var wall = walls[i];
           hit = intersect(x1, y1, x2, y2, wall[0], wall[1], wall[2], wall[3]);
@@ -148,40 +147,40 @@
             var hyp = Math.sqrt(dx * dx + dy * dy);
             var relativeAngle = angle - this.angle;
             var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
+            var wallDx = Math.abs(hit.x - wall[0]) + NO_DIVIDE_BY_ZERO;
+            var wallDy = Math.abs(hit.y - wall[1]) + NO_DIVIDE_BY_ZERO;
 
-            if (dist < closest) {
-              closest = dist;
-              point = hit;
-              texture = wall[4];
+            // TODO: precompute
+            var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
+            var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
+            var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
+            var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
+            var textureRatio = textureDistance / wallLength;
 
-              var wallDx = Math.abs(hit.x - wall[0]) + NO_DIVIDE_BY_ZERO;
-              var wallDy = Math.abs(hit.y - wall[1]) + NO_DIVIDE_BY_ZERO;
-
-              // TODO: precompute
-              var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
-              var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
-              var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
-              var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
-
-              textureRatio = textureDistance / wallLength;
-
-              //if (textureRatio < 0 || textureRatio > 1) debugger;
-            }
+            hits.push({
+              x: hit.x,
+              y: hit.y,
+              dist: dist,
+              rayX: x2,
+              rayY: y2,
+              texture: wall[4],
+              textureRatio: textureRatio
+            });
           }
         }
-        intersections.push({
-          x: point.x,
-          y: point.y,
-          dist: closest,
-          rayX: x2,
-          rayY: y2,
-          texture: texture,
-          textureRatio: textureRatio
-        });
+        hits.sort(sortDistance);
+        var depth = 0;
+        var j = 1;
+        while (j < hits.length && map.transparent(hits[j].texture)) j++;
+        intersections.push(hits.slice(0, j));
       }
 
       this.intersections = intersections;
       return intersections;
+
+      function sortDistance(a, b) {
+        return a.dist - b.dist;
+      }
     }
 
   };

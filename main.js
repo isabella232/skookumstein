@@ -24,7 +24,6 @@
     topdown.player = player;
 
     raycaster.viewport = viewport;
-    raycaster.map = map;
     raycaster.npcs = [jim];
     raycaster.player = player;
   }
@@ -35,11 +34,11 @@
 
   function draw(time) {
     player.step(time);
-    player.trace(map.walls, ns.Config.segments);
+    player.trace(map, ns.Config.segments);
 
     viewport.clear();
-    raycaster.render();
-    topdown.render();
+    raycaster.render(map, player.intersections);
+    topdown.render(map);
   }
 
 })('skookum');

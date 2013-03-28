@@ -131,7 +131,7 @@
 
     // TODO: better to pass in the X and WIDTH and use those to derive the angle etc
 
-    textureCol: function(index, total, distance, texture, textureRatio, shadow) {
+    textureCol: function(index, total, distance, texture, textureRatio) {
       if (distance === Infinity) return;
       var width = this._el.width / total;
       var x = width * index;
@@ -140,15 +140,15 @@
       var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
 
       var sWidth = 1;
-      var sHeight = texture.height;
-      var sx = Math.min(texture.width - sWidth, Math.max(0, textureRatio * texture.width));
+      var sHeight = texture.image.height;
+      var sx = Math.min(texture.image.width - sWidth, Math.max(0, textureRatio * texture.image.width));
       var sy = 0;
 
-      this._ctx.drawImage(texture, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+      this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
 
-      if (shadow) {
+      if (texture.shadow) {
         this._ctx.globalAlpha = shadowLevel;
-        this._ctx.drawImage(shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+        this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
         this._ctx.globalAlpha = 1;
       }
     }

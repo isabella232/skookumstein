@@ -3,31 +3,25 @@
   var ns = window[namespace] = window[namespace] || {};
 
   function Raycaster() {
-    this.setDefaults();
+    this.viewport = undefined;
   }
 
   Raycaster.prototype = {
 
-    setDefaults: function() {
-      this.viewport =
-      this.map =
-      this.npcs =
-      this.player =
-      undefined;
-    },
-
-    render: function() {
+    render: function(map, intersections) {
       if (!ns.Config.raycaster) return;
       var size = this.viewport.getSize();
-      var intersections = this.player.intersections;
       var segments = intersections.length;
       var rayWidth = size.width / segments;
-      var i;
+      var i, j;
 
       if (ns.Config.textures) {
         for (i = 0; i < segments; i++) {
-          var inter = intersections[i];
-          this.viewport.textureCol(i, segments, inter.dist, this.map.texture(inter.texture), inter.textureRatio, this.map.shadow(inter.texture));
+          for (j = intersections[i].length - 1; j >= 0; j--) {
+            var inter = intersections[i][j];
+            var texture = map.texture(inter.texture);
+            this.viewport.textureCol(i, segments, inter.dist, texture, inter.textureRatio);
+          }
         }
         return;
       }
