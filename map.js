@@ -4,7 +4,8 @@
 
   function Map() {
     this.images = {};
-    this.applyOffsets();
+    this.shadows = {};
+    this.applyOffsetsAndScale();
     this.loadTextures();
   }
 
@@ -74,16 +75,50 @@
       return this.images[name];
     },
 
+    shadow: function(name) {
+      return this.shadows[name];
+    },
+
     loadTextures: function() {
       var self = this;
 
       for (var key in this.textures) {
-        var newImage = this.images[key] = new Image();
-        newImage.src = this.textures[key];
+        this.loadTexture(key);
       }
     },
 
-    applyOffsets: function() {
+    loadTexture: function(key) {
+      var self = this;
+      var newImage = this.images[key] = document.createElement('image');
+
+      newImage.onload = drawShadow;
+      newImage.src = this.textures[key];
+
+      function drawShadow() {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var width = newImage.width;
+        var height = newImage.height;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.drawImage(newImage, 0, 0);
+
+        var pixels = ctx.getImageData(0, 0, width, height);
+        for (var y = 0; y < height; y++) {
+          for (var x = 0; x < width; x++) {
+            var i = (y * width + x) * 4;
+            pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = 0;
+          }
+        }
+
+        ctx.putImageData(pixels, 0, 0);
+        self.shadows[key] = canvas;
+      }
+    },
+
+    applyOffsetsAndScale: function() {
       var i = this.walls.length;
       while (i--) {
         this.walls[i][0] = (this.walls[i][0] - this.offX) * this.scaleX;

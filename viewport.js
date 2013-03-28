@@ -127,13 +127,17 @@
     // and pass explicit x and width values into the column drawing routine instead
     // of index and total
 
-    textureCol: function(index, total, distance, texture, textureRatio) {
+    // TODO: woah lots of arguments
+
+    // TODO: better to pass in the X and WIDTH and use those to derive the angle etc
+
+    textureCol: function(index, total, distance, texture, textureRatio, shadow) {
       if (distance === Infinity) return;
       var width = this._el.width / total;
       var x = width * index;
       var height = this._el.height / (distance * SCALE);
       var y = (this._el.height - height) * 0.5;
-      var shadow = 1 - Math.max(0, Math.min(1, height / this._el.height));
+      var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
 
       var sWidth = 1;
       var sHeight = texture.height;
@@ -142,9 +146,11 @@
 
       this._ctx.drawImage(texture, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
 
-      // TODO: need to use even integers and draw columns without overlapped anti-aliasing
-      this._ctx.fillStyle = 'rgba(0,0,0,' + shadow + ')';
-      this._ctx.fillRect(x - 2, y - 1, width + 4, height + 2);
+      if (shadow) {
+        this._ctx.globalAlpha = shadowLevel;
+        this._ctx.drawImage(shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+        this._ctx.globalAlpha = 1;
+      }
     }
   };
 
