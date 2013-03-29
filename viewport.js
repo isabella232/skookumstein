@@ -151,6 +151,13 @@
         this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
         this._ctx.globalAlpha = 1;
       }
+    },
+
+    drawFps: function(fps) {
+      this._ctx.font = '14px sans-serif';
+      this._ctx.fillStyle = '#fff';
+      this._ctx.textAlign = 'left';
+      this._ctx.fillText('FPS: ' + fps, 20, 30);
     }
   };
 
