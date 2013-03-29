@@ -9,14 +9,15 @@
   start();
 
   function setup() {
-    player = new ns.Player();
+    player = new ns.Player(-100, -150, -90);
     viewport = new ns.Viewport(document.getElementById('viewport'));
     map = new ns.Map();
     topdown = new ns.Topdown(viewport);
     raycaster = new ns.Raycaster(viewport);
     gameloop = new ns.Gameloop();
 
-    map.npcs.push(new ns.Npc('melissa'));
+    //map.npcs.push(new ns.Npc('melissa', 390, 250));
+    map.npcs.push(new ns.Npc('melissa', -100, -200));
   }
 
   function start() {

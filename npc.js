@@ -6,8 +6,8 @@
 
   var CHARACTERS = {
     'melissa': {
-      texture: 'textures/melissa2.png',
-      width: 10,
+      texture: 'melissa2',
+      width: 30,
       base: 456
     }
   };
@@ -16,13 +16,14 @@
     this._character = character;
     this.x = x;
     this.y = y;
+    this.shadow = true;
   }
 
   Npc.prototype = {
 
     getCoords: function(px, py) {
       var chr = CHARACTERS[this._character];
-      var angle = Math.atan2(this.x - px, this.y - py);
+      var angle = RIGHT_ANGLE - Math.atan2(this.x - px, this.y - py);
       var half = chr.width * 0.5;
       var x1 = this.x + Math.cos(angle - RIGHT_ANGLE) * half;
       var y1 = this.y + Math.sin(angle - RIGHT_ANGLE) * half;
@@ -34,6 +35,10 @@
         x2: x2,
         y2: y2
       };
+    },
+
+    getTexture: function() {
+      return CHARACTERS[this._character].texture;
     }
 
   };

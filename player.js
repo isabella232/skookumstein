@@ -20,17 +20,17 @@
   var WALK_SPEED = 0.4;
   var REVERSE_SPEED = 0.2;
 
-  function Player() {
+  function Player(x, y, angle) {
     this.setDefaults();
+    this.x = x;
+    this.y = y;
+    this.angle = angle * DEG_TO_RAD;
     this.listen();
   }
 
   Player.prototype = {
 
     setDefaults: function() {
-      this.x = -100;
-      this.y = -150;
-      this.angle = -RIGHT_ANGLE;
       this.fov = 70 * DEG_TO_RAD;
       this.turningLeft = false;
       this.turningRight = false;
@@ -146,19 +146,17 @@
           if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
         }
 
-        if (false) {
-          i = npcs.length;
-          while (i--) {
-            var npc = npcs[i].getCoords(x1, y1);
-            intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
-            if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, x1, y1, x2, y2));
-          }
+        i = npcs.length;
+        while (i--) {
+          var npc = npcs[i].getCoords(x1, y1);
+          intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
+          if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, x1, y1, x2, y2, npc.x1, npc.y1));
         }
 
         hits.sort(sortDistance);
 
         var depth = 0, j = 0;
-        while (j < hits.length && map.transparent(hits[j].wall.texture)) j++;
+        while (j < hits.length && map.transparent(hits[j].texture)) j++;
 
         intersections.push({
           hits: hits.slice(0, j + 1),
@@ -201,12 +199,33 @@
       rayY: ry,
       dist: dist,
       wall: wall,
-      wallRatio: wallRatio
+      wallRatio: wallRatio,
+      texture: wall.texture
     };
   }
 
-  function npcHit(npc, intersection, angle, pAngle, px, py, rx, ry) {
+  function npcHit(npc, intersection, angle, pAngle, px, py, rx, ry, wx, wy) {
+    var dx = intersection.x - px;
+    var dy = intersection.y - py;
+    var hyp = Math.sqrt(dx * dx + dy * dy);
+    var relativeAngle = angle - pAngle;
+    var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
+    var npcDx = intersection.x - wx;
+    var npcDy = intersection.y - wy;
 
+    var textureDistance = Math.sqrt(npcDx * npcDx + npcDy * npcDy);
+    var textureRatio = textureDistance / npc.width;
+
+    return {
+      x: intersection.x,
+      y: intersection.y,
+      rayX: rx,
+      rayY: ry,
+      dist: dist,
+      npc: npc,
+      textureRatio: textureRatio,
+      texture: npc.texture
+    };
   }
 
   // TODO: this is more complicated than it needs to be; direct translation from Processing.org

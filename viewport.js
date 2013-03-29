@@ -130,22 +130,42 @@
     // TODO: better to pass in the X and WIDTH and use those to derive the angle etc
 
     textureCol: function(index, total, map, hit) {
-      var width = this._el.width / total;
-      var x = width * index;
-      var height = (this._el.height / (hit.dist * SCALE)) * hit.wall.scaleY;
-      var y = (this._el.height - height) * 0.5;
+      var x, y, width, height;
+      var sx, sy, sWidth, sHeight;
+      var texture, hasShadow;
 
-      var texture = map.texture(hit.wall.texture);
-      var sWidth = 1;
-      var sHeight = texture.image.height;
-      var sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.wallRatio * texture.image.width));
-      var sy = 0;
+      if (hit.wall) {
+        width = this._el.width / total;
+        x = width * index;
+        height = (this._el.height / (hit.dist * SCALE)) * hit.wall.scaleY;
+        y = (this._el.height - height) * 0.5;
+
+        texture = map.texture(hit.wall.texture);
+        hasShadow = hit.wall.shadow;
+        sWidth = 1;
+        sHeight = texture.image.height;
+        sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.wallRatio * texture.image.width));
+        sy = 0;
+      }
+      else if (hit.npc) {
+        width = this._el.width / total;
+        x = width * index;
+        height = this._el.height / (hit.dist * SCALE);
+        y = (this._el.height - height) * 0.5;
+
+        texture = map.texture(hit.npc.getTexture());
+        hasShadow = hit.npc.shadow;
+        sWidth = texture.image.width;
+        sHeight = texture.image.height;
+        sx = 0; //Math.min(texture.image.width - sWidth, Math.max(0, hit.textureRatio * texture.image.width));
+        sy = 0;
+      }
 
       if (ns.Config.textures) {
         this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
       }
 
-      if (ns.Config.shadows && texture.shadow && hit.wall.shadow) {
+      if (ns.Config.shadows && texture.shadow && hasShadow) {
         var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
         this._ctx.globalAlpha = shadowLevel;
         this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);

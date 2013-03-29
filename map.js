@@ -78,7 +78,6 @@
       [440, 250, 425, 230, 'desk_side'],  // corner of Melissa's desk
       [400, 230, 400, 240, 'desk_side'],  // side edge of Melissa's desk
       [425, 250, 425, 300, 'desk_side'],  // inside edge of Melissa's desk
-      [400, 250, 380, 250, 'melissa2'],  // test Melissa
     ],
 
     // TODO: automatically build a transparency mask for the shadow overlays for each
