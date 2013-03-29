@@ -30,6 +30,7 @@
     viewport.clear();
     raycaster.render(map, player.intersections);
     topdown.render(player, map, player.intersections);
+    viewport.drawFps(gameloop.fps);
   }
 
 })('skookum');

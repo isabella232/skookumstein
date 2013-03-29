@@ -77,13 +77,6 @@
       [400, 230, 400, 240, 'desk_side'],  // side edge of Melissa's desk
       [425, 250, 425, 300, 'desk_side'],  // inside edge of Melissa's desk
       [400, 250, 380, 250, 'melissa2'],  // test Melissa
-
-      /*[200, 100, 100, 100, 'skookum_poster'],
-      [200, 100, 200, 200, 'x'],
-      [200, 200, 100, 200, 'x'],
-      [100, 100, 100, 200, 'skookum_wall'],
-      [-100, -100, 200, -100, 'wall'],
-      [-100, -100, -100, 200, 'wall']*/
     ],
 
     // TODO: automatically build a transparency mask for the shadow overlays for each

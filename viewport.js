@@ -141,14 +141,23 @@
       var sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.wallRatio * texture.image.width));
       var sy = 0;
 
-      this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+      if (ns.Config.textures) {
+        this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
+      }
 
-      if (texture.shadow && hit.wall.shadow) {
+      if (ns.Config.shadows && texture.shadow && hit.wall.shadow) {
         var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
         this._ctx.globalAlpha = shadowLevel;
         this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
         this._ctx.globalAlpha = 1;
       }
+    },
+
+    drawFps: function(fps) {
+      this._ctx.font = '14px sans-serif';
+      this._ctx.fillStyle = '#fff';
+      this._ctx.textAlign = 'left';
+      this._ctx.fillText('FPS: ' + fps, 20, 30);
     }
   };
 

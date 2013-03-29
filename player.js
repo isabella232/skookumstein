@@ -122,6 +122,7 @@
     // TODO: wow. refactor.
 
     trace: function(map, segments) {
+      var self = this;
       var walls = map.walls;
       var intersections = [];
       var a0 = this.angle - this.fov * 0.5;
@@ -139,38 +140,15 @@
 
         while (i--) {
           var wall = walls[i];
-          hit = intersect(x1, y1, x2, y2, wall[0], wall[1], wall[2], wall[3]);
-
-          if (hit) {
-            var dx = hit.x - x1;
-            var dy = hit.y - y1;
-            var hyp = Math.sqrt(dx * dx + dy * dy);
-            var relativeAngle = angle - this.angle;
-            var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
-            var wallDx = Math.abs(hit.x - wall[0]) + NO_DIVIDE_BY_ZERO;
-            var wallDy = Math.abs(hit.y - wall[1]) + NO_DIVIDE_BY_ZERO;
-
-            // TODO: precompute
-            var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
-            var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
-            var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
-            var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
-            var wallRatio = textureDistance / wallLength;
-
-            hits.push({
-              x: hit.x,
-              y: hit.y,
-              dist: dist,
-              rayX: x2,
-              rayY: y2,
-              wall: wall,
-              wallRatio: wallRatio
-            });
-          }
+          intersection = intersect(x1, y1, x2, y2, wall[0], wall[1], wall[2], wall[3]);
+          if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
         }
+
         hits.sort(sortDistance);
+
         var depth = 0, j = 1;
         while (j < hits.length && map.transparent(hits[j].texture)) j++;
+
         intersections.push({
           hits: hits.slice(0, j),
           rayX: x2,
@@ -179,7 +157,6 @@
       }
 
       this.intersections = intersections;
-      return intersections;
 
       function sortDistance(a, b) {
         return a.dist - b.dist;
@@ -187,6 +164,35 @@
     }
 
   };
+
+  // TODO: break this up or make it simpler. Too many arguments. Too much data.
+
+  function wallHit(wall, intersection, angle, pAngle, px, py, rx, ry) {
+    var dx = intersection.x - px;
+    var dy = intersection.y - py;
+    var hyp = Math.sqrt(dx * dx + dy * dy);
+    var relativeAngle = angle - pAngle;
+    var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
+    var wallDx = Math.abs(intersection.x - wall[0]) + NO_DIVIDE_BY_ZERO;
+    var wallDy = Math.abs(intersection.y - wall[1]) + NO_DIVIDE_BY_ZERO;
+
+    // TODO: precompute
+    var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
+    var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
+    var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
+    var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
+    var wallRatio = textureDistance / wallLength;
+
+    return {
+      x: intersection.x,
+      y: intersection.y,
+      rayX: rx,
+      rayY: ry,
+      dist: dist,
+      wall: wall,
+      wallRatio: wallRatio
+    };
+  }
 
   // TODO: this is more complicated than it needs to be; direct translation from Processing.org
 

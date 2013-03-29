@@ -16,7 +16,7 @@
       var hit, texture;
       var i, j;
 
-      if (ns.Config.textures) {
+      if (ns.Config.columns === 'textured') {
         for (i = 0; i < segments; i++) {
           var hits = rays[i].hits;
           for (j = hits.length - 1; j >= 0; j--) {
@@ -27,7 +27,7 @@
         return;
       }
 
-      if (ns.Config.lighting) {
+      if (ns.Config.columns === 'deep') {
         for (i = 0; i < segments; i++) {
           hit = rays[i].hits[0];
           if (hit) this.viewport.litCol(i, segments, hit.dist);
