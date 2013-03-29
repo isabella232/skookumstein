@@ -31,7 +31,9 @@
       [455, 205, 540, 205, 'skookum_wall'], // skookum logo wall
       [455, 200, 455, 205, 'wall'],  // skookum logo wall side
 
-      [465, 155, 755, 155, 'wall'],    // top hallway north side
+      [430, 155, 755, 155, 'wall'],    // top hallway north side (top)
+      [430, 155, 430, 160, 'wall'],    // top hallway north side (connector)
+      [430, 160, 755, 160, 'wall'],    // top hallway north side (bottom)
       [455, 200, 755, 200, 'wall'],  // top hallway south side
 
       [485, 285, 490, 285, 'wall'], // entry wall left wood side
@@ -43,6 +45,7 @@
       [370, 300, 275, 300, 'charlotte_poster'], // back wall of lounge
       [275, 300, 275, 225, 'tv'], // tv in lounge
 
+      [270, 300, 270, 225, 'wall'], // left conference room East wall
       [110, 300, 270, 300, 'wall'], // left conference room South wall
       [110, 210, 110, 300, 'wall'], // left conference room West wall
       [110, 210, 220, 210, 'wall'], // left conference room North wall
@@ -50,6 +53,7 @@
 
       [110, 60, 110, 210, 'wall'], // right conference room West wall
       [110, 60, 270, 60, 'wall'], // right conference room North wall
+      [270, 60, 270, 160, 'wall'], // right conference room East wall
 
       [275, 225, 240, 190, 'door'], // door to design room
       [240, 190, 275, 160, 'door'], // door to conference room
