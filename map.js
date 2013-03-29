@@ -68,6 +68,13 @@
       [300, 125, 275, 125, 'fridge1_side'], // side of black fridge
       [275, 155, 275, 60, 'red_wall'], // wall to right of black fridge
 
+      [275, 59, 325, 59, {
+        texture: 'kitchen_sky',
+        mapping: 'angle',
+        scaleY: 1,
+        shadow: false
+      }],
+
       [275, 60, 325, 60, 'window'], // left kitchen window
       [325, 60, 415, 60, 'wall'], // between kitchen window
       [415, 60, 465, 60, 'window'], // right kitchen window
@@ -98,7 +105,8 @@
       'desk_side': 'textures/desk_side.png',
       'red_wall': 'textures/red_wall_empty.jpg',
       'melissa2': 'textures/melissa2.png',
-      'circle_light': 'textures/circle_light.png'
+      'circle_light': 'textures/circle_light.png',
+      'kitchen_sky': 'textures/kitchen_sky.jpg'
     },
 
     texture: function(name) {
@@ -172,10 +180,12 @@
           this.walls[i].texture = this.walls[i][4].texture;
           this.walls[i].scaleY = this.walls[i][4].scaleY;
           this.walls[i].shadow = this.walls[i][4].shadow;
+          this.walls[i].mapping = this.walls[i][4].mapping;
         } else {
           this.walls[i].texture = this.walls[i][4];
           this.walls[i].scaleY = 1;
           this.walls[i].shadow = true;
+          this.walls[i].mapping = 'position';
         }
         delete this.walls[i][4];
       }
