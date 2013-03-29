@@ -133,24 +133,24 @@
       for (var angle = a0; angle <= a1; angle += da) {
         var hits = [];
         var hit;
-        var x1 = this.x;
-        var y1 = this.y;
-        var x2 = this.x + Math.cos(angle) * RAY_DISTANCE;
-        var y2 = this.y + Math.sin(angle) * RAY_DISTANCE;
+        var px = this.x;
+        var py = this.y;
+        var rx = this.x + Math.cos(angle) * RAY_DISTANCE;
+        var ry = this.y + Math.sin(angle) * RAY_DISTANCE;
         var i;
 
         i = walls.length;
         while (i--) {
           var wall = walls[i];
-          intersection = intersect(x1, y1, x2, y2, wall[0], wall[1], wall[2], wall[3]);
-          if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
+          intersection = intersect(px, py, rx, ry, wall[0], wall[1], wall[2], wall[3]);
+          if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, px, py));
         }
 
         i = npcs.length;
         while (i--) {
-          var npc = npcs[i].getCoords(x1, y1);
-          intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
-          if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, x1, y1, x2, y2, npc.x1, npc.y1));
+          var npc = npcs[i].getCoords(px, py);
+          intersection = intersect(px, py, rx, ry, npc.x1, npc.y1, npc.x2, npc.y2);
+          if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, px, py, npc.x1, npc.y1));
         }
 
         hits.sort(sortDistance);
@@ -160,8 +160,8 @@
 
         intersections.push({
           hits: hits.slice(0, j + 1),
-          rayX: x2,
-          rayY: y2
+          rayX: rx,
+          rayY: ry
         });
       }
 
@@ -176,7 +176,7 @@
 
   // TODO: break this up or make it simpler. Too many arguments. Too much data.
 
-  function wallHit(wall, intersection, angle, pAngle, px, py, rx, ry) {
+  function wallHit(wall, intersection, angle, pAngle, px, py) {
     var dx = intersection.x - px;
     var dy = intersection.y - py;
     var hyp = Math.sqrt(dx * dx + dy * dy);
@@ -195,8 +195,6 @@
     return {
       x: intersection.x,
       y: intersection.y,
-      rayX: rx,
-      rayY: ry,
       dist: dist,
       wall: wall,
       wallRatio: wallRatio,
@@ -204,7 +202,7 @@
     };
   }
 
-  function npcHit(npc, intersection, angle, pAngle, px, py, rx, ry, wx, wy) {
+  function npcHit(npc, intersection, angle, pAngle, px, py, wx, wy) {
     var dx = intersection.x - px;
     var dy = intersection.y - py;
     var hyp = Math.sqrt(dx * dx + dy * dy);
@@ -214,13 +212,11 @@
     var npcDy = intersection.y - wy;
 
     var textureDistance = Math.sqrt(npcDx * npcDx + npcDy * npcDy);
-    var textureRatio = textureDistance / npc.width;
+    var textureRatio = textureDistance / npc.getWidth();
 
     return {
       x: intersection.x,
       y: intersection.y,
-      rayX: rx,
-      rayY: ry,
       dist: dist,
       npc: npc,
       textureRatio: textureRatio,

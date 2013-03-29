@@ -12,6 +12,8 @@
     }
   };
 
+  // TODO: copy values instead of using getters
+
   function Npc(character, x, y) {
     this._character = character;
     this.x = x;
@@ -39,6 +41,10 @@
 
     getTexture: function() {
       return CHARACTERS[this._character].texture;
+    },
+
+    getWidth: function() {
+      return CHARACTERS[this._character].width;
     }
 
   };

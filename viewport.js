@@ -155,9 +155,9 @@
 
         texture = map.texture(hit.npc.getTexture());
         hasShadow = hit.npc.shadow;
-        sWidth = texture.image.width;
+        sWidth = 1;
         sHeight = texture.image.height;
-        sx = 0; //Math.min(texture.image.width - sWidth, Math.max(0, hit.textureRatio * texture.image.width));
+        sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.textureRatio * texture.image.width));
         sy = 0;
       }
 
