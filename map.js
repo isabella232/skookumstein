@@ -18,34 +18,55 @@
     scaleY: 1,
 
     walls: [
-      [375, 305, 375, 375, 'wood_wall'], // outside fake enclosure left
-      [675, 305, 675, 375, 'wood_wall'], // outside fake enclosure right
-      [550, 305, 575, 305, 'wood_wall'], // outside wall right
-      [475, 305, 450, 305, 'wood_wall'], // outside wall left
-      [375, 305, 450, 305, 'wood_wall'], // outside wall far left
-      [675, 305, 575, 305, 'wood_wall'], // outside wall far right
-      [550, 200, 550, 270, 'wall'], // entry wall right
-      [550, 305, 550, 270, 'wood_wall'], // entry wall right wood
-      [475, 305, 475, 270, 'wood_wall'], // entry wall left wood
-      [450, 205, 550, 205, 'skookum_wall'], // skookum logo wall
-      [450, 200, 450, 205, 'wall'],  // skookum logo wall side
-      [475, 270, 470, 270, 'wall'], // entry wall left wood side
-      [470, 270, 470, 300, 'wall'],
-      [470, 300, 375, 300, 'wall'], // wall to left of Melissa
+      [275, 305, 275, 375, 'wood_wall'], // outside fake enclosure left
+      [700, 305, 700, 375, 'wood_wall'], // outside fake enclosure right
+      [540, 305, 575, 305, 'wood_wall'], // outside wall right
+      [490, 305, 450, 305, 'wood_wall'], // outside wall left
+      [275, 305, 450, 305, 'wood_wall'], // outside wall far left
+      [700, 305, 575, 305, 'wood_wall'], // outside wall far right
+      [540, 200, 540, 270, 'wall'], // entry wall right
+      [540, 305, 540, 270, 'wood_wall'], // entry wall right wood
+      [490, 305, 490, 285, 'wood_wall'], // entry wall left wood
+
+      [455, 205, 540, 205, 'skookum_wall'], // skookum logo wall
+      [455, 200, 455, 205, 'wall'],  // skookum logo wall side
+
+      [465, 155, 755, 155, 'wall'],    // top hallway north side
+      [455, 200, 755, 200, 'wall'],  // top hallway south side
+
+      [485, 285, 490, 285, 'wall'], // entry wall left wood side
+      [485, 285, 485, 300, 'wall'], //short left entry wall
+      [485, 300, 375, 300, 'wall'], // wall to left of Melissa
       [375, 300, 375, 225, 'red_wall_boxes'], // red wall behind Melissa
       [375, 225, 370, 225, 'red_wall'], // side edge of lounge on left
       [370, 225, 370, 300, 'red_wall'],  // left wall of lounge
       [370, 300, 275, 300, 'charlotte_poster'], // back wall of lounge
       [275, 300, 275, 225, 'tv'], // tv in lounge
-      [275, 225, 225, 175, 'door'], // door to design room
-      [225, 175, 275, 125, 'door'], // door to conference room
-      [275, 125, 335, 125, 'wall'], // left wall blocking kitchen
-      [335, 125, 335, 120, 'wall'], // left wall blocking kitchen side
-      [335, 120, 275, 120, 'wall'], // left wall blocking kitchen inner
-      [300, 120, 300, 90, 'fridge1_front'], // front of black fridge
-      [300, 90, 275, 90, 'fridge1_side'], // side of black fridge
-      [275, 120, 275, 25, 'red_wall'], // wall to right of black fridge
-      [275, 25, 325, 25, 'window'], // left kitchen window
+
+      [110, 300, 270, 300, 'wall'], // left conference room South wall
+      [110, 210, 110, 300, 'wall'], // left conference room West wall
+      [110, 210, 220, 210, 'wall'], // left conference room North wall
+      [220, 210, 240, 190, 'wall'], // left conference room door diagonal wall
+
+      [110, 60, 110, 210, 'wall'], // right conference room West wall
+      [110, 60, 270, 60, 'wall'], // right conference room North wall
+
+      [275, 225, 240, 190, 'door'], // door to design room
+      [240, 190, 275, 160, 'door'], // door to conference room
+
+      [275, 160, 335, 160, 'wall'], // left wall blocking kitchen
+      [335, 160, 335, 155, 'wall'], // left wall blocking kitchen side
+      [335, 155, 275, 155, 'wall'], // left wall blocking kitchen inner
+
+      [300, 155, 300, 125, 'fridge1_front'], // front of black fridge
+      [300, 125, 275, 125, 'fridge1_side'], // side of black fridge
+      [275, 155, 275, 60, 'red_wall'], // wall to right of black fridge
+
+      [275, 60, 325, 60, 'window'], // left kitchen window
+      [325, 60, 415, 60, 'wall'], // between kitchen window
+      [415, 60, 465, 60, 'window'], // right kitchen window
+      [465, 60, 465, 155, 'wall'], // East kitchen wall
+
       [400, 230, 425, 230, 'desk_side'],  // right side of Melissa's desk
       [440, 250, 440, 300, 'desk_side'],  // left side of Melissa's desk
       [440, 250, 425, 230, 'desk_side'],  // corner of Melissa's desk
