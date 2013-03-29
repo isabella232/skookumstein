@@ -4,7 +4,6 @@
   var ns = window[namespace] = window[namespace] || {};
 
   var player, viewport, map, topdown, raycaster, gameloop, config;
-  var jim;
 
   setup();
   start();
@@ -16,7 +15,8 @@
     topdown = new ns.Topdown(viewport);
     raycaster = new ns.Raycaster(viewport);
     gameloop = new ns.Gameloop();
-    jim = new ns.Npc('jim');
+
+    map.npcs.push(new ns.Npc('melissa'));
   }
 
   function start() {

@@ -146,20 +146,22 @@
           if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
         }
 
-        i = npcs.length;
-        while (i--) {
-          var npc = npcs[i].getCoords();
-          intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
-          if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, x1, y1, x2, y2));
+        if (false) {
+          i = npcs.length;
+          while (i--) {
+            var npc = npcs[i].getCoords(x1, y1);
+            intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
+            if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, x1, y1, x2, y2));
+          }
         }
 
         hits.sort(sortDistance);
 
-        var depth = 0, j = 1;
-        while (j < hits.length && map.transparent(hits[j].texture)) j++;
+        var depth = 0, j = 0;
+        while (j < hits.length && map.transparent(hits[j].wall.texture)) j++;
 
         intersections.push({
-          hits: hits.slice(0, j),
+          hits: hits.slice(0, j + 1),
           rayX: x2,
           rayY: y2
         });
@@ -201,6 +203,10 @@
       wall: wall,
       wallRatio: wallRatio
     };
+  }
+
+  function npcHit(npc, intersection, angle, pAngle, px, py, rx, ry) {
+
   }
 
   // TODO: this is more complicated than it needs to be; direct translation from Processing.org

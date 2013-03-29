@@ -4,8 +4,8 @@
 
   function Map() {
     this.images = {};             // The images that are drawn as the base layers for textures
-    this.shadows = {};            // Shadows masked to mimic the transparencies of textures
-    this.transparencies = {};     // Flag telling us whether or not we should paint behind this texture
+    this.shadows = {};            // Shadows masked to mimic the transparency of textures
+    this.transparency = {};     // Flag telling us whether or not we should paint behind this texture
     this.preprocess();
     this.loadTextures();
   }
@@ -16,6 +16,8 @@
     offY: 600,
     scaleX: 1,
     scaleY: 1,
+
+    npcs: [],
 
     walls: [
       [275, 305, 275, 375, 'wood_wall'], // outside fake enclosure left
@@ -99,16 +101,11 @@
       'melissa2': 'textures/melissa2.png'
     },
 
-    panorama: {
-      texture: 'textures/skyline.jpg'
-    },
-
-    // todo: return an object with 'image' 'shadow' and 'transparent'
     texture: function(name) {
       return {
         image: this.images[name],
         shadow: this.shadows[name],
-        transparent: this.transparencies[name] || true
+        transparent: this.transparency[name]
       };
     },
 
@@ -117,7 +114,7 @@
     },
 
     transparent: function(name) {
-      return this.transparencies[name] || true;
+      return this.transparency[name];
     },
 
     loadTextures: function() {
@@ -152,13 +149,13 @@
           for (var x = 0; x < width; x++) {
             var i = (y * width + x) * 4;
             pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = 0;
-            if (!transparent && pixels.data[i + 3] < 255) trnasparent = true;
+            if (pixels.data[i + 3] < 255) transparent = true;
           }
         }
 
         ctx.putImageData(pixels, 0, 0);
         self.shadows[key] = canvas;
-        self.transparencies[key] = transparent;
+        self.transparency[key] = transparent;
       }
     },
 
