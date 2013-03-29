@@ -124,6 +124,7 @@
     trace: function(map, segments) {
       var self = this;
       var walls = map.walls;
+      var npcs = map.npcs;
       var intersections = [];
       var a0 = this.angle - this.fov * 0.5;
       var da = this.fov / segments;
@@ -136,12 +137,20 @@
         var y1 = this.y;
         var x2 = this.x + Math.cos(angle) * RAY_DISTANCE;
         var y2 = this.y + Math.sin(angle) * RAY_DISTANCE;
-        var i = walls.length;
+        var i;
 
+        i = walls.length;
         while (i--) {
           var wall = walls[i];
           intersection = intersect(x1, y1, x2, y2, wall[0], wall[1], wall[2], wall[3]);
           if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
+        }
+
+        i = npcs.length;
+        while (i--) {
+          var npc = npcs[i].getCoords();
+          intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
+          if (intersection) hits.push(npcHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
         }
 
         hits.sort(sortDistance);
