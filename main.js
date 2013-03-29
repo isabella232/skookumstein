@@ -17,7 +17,7 @@
     gameloop = new ns.Gameloop();
 
     map.npcs.push(new ns.Npc('melissa', -205, -350));
-    map.npcs.push(new ns.Npc('light', -210, -440));
+    map.npcs.push(new ns.Npc('light', -215, -440));
   }
 
   function start() {
@@ -26,12 +26,12 @@
 
   function draw(time) {
     player.step(time);
-    player.trace(map, ns.Config.segments);
+    player.trace(map, ns.Config.segments, time);
 
     viewport.clear();
-    raycaster.render(map, player.intersections);
+    raycaster.render(map, player.intersections, time);
     topdown.render(player, map, player.intersections);
-    viewport.drawFps(gameloop.fps);
+    viewport.drawStats(gameloop.fps, Math.floor(player.lastRayCount));
   }
 
 })('skookum');

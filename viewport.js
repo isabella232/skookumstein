@@ -173,11 +173,12 @@
       }
     },
 
-    drawFps: function(fps) {
+    drawStats: function(fps, rays) {
       this._ctx.font = '14px sans-serif';
       this._ctx.fillStyle = '#fff';
       this._ctx.textAlign = 'left';
       this._ctx.fillText('FPS: ' + fps, 20, 30);
+      this._ctx.fillText('Rays: ' + rays, 100, 30);
     }
   };
 

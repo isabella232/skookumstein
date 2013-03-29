@@ -20,11 +20,15 @@
   var WALK_SPEED = 0.3;
   var REVERSE_SPEED = 0.1;
 
+  var TARGET_FPS = 40;
+  var TARGET_TIME = 1000 / TARGET_FPS;
+
   function Player(x, y, angle) {
     this.setDefaults();
     this.x = x;
     this.y = y;
     this.angle = angle * DEG_TO_RAD;
+    this.lastRayCount = 128;
     this.listen();
   }
 
@@ -123,7 +127,17 @@
     // TODO: move some of the decisions into the renderer.
     // we shouldn't care here about texture mapping.
 
-    trace: function(map, segments) {
+    trace: function(map, segments, time) {
+
+      if (ns.Config.adaptive) {
+        var timePerRay = time / this.lastRayCount;
+        this.lastRayCount = TARGET_TIME / timePerRay;
+      }
+      else {
+        this.lastRayCount = segments;
+      }
+      segments = Math.floor(this.lastRayCount);
+
       var self = this;
       var walls = map.walls;
       var npcs = map.npcs;

@@ -8,7 +8,7 @@
 
   Raycaster.prototype = {
 
-    render: function(map, rays) {
+    render: function(map, rays, time) {
       if (!ns.Config.raycaster) return;
       var size = this.viewport.getSize();
       var segments = rays.length;

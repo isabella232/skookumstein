@@ -20,7 +20,8 @@
         intersections: false,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 2
@@ -33,7 +34,8 @@
         intersections: false,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 3
@@ -46,7 +48,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 4
@@ -59,7 +62,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 5
@@ -72,7 +76,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 6
@@ -85,7 +90,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 7
@@ -98,7 +104,8 @@
         intersections: true,
         columns: 'deep',
         textures: false,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 8
@@ -111,7 +118,8 @@
         intersections: true,
         columns: 'textured',
         textures: true,
-        shadows: false
+        shadows: false,
+        adaptive: false
       },
 
       // 9
@@ -124,7 +132,8 @@
         intersections: true,
         columns: 'textured',
         textures: false,
-        shadows: true
+        shadows: true,
+        adaptive: false
       },
 
       // Q
@@ -137,7 +146,8 @@
         intersections: true,
         columns: 'textured',
         textures: true,
-        shadows: true
+        shadows: true,
+        adaptive: false
       },
 
       // W
@@ -150,12 +160,22 @@
         intersections: true,
         columns: 'textured',
         textures: true,
-        shadows: true
+        shadows: true,
+        adaptive: false
       },
 
       // E
       '101': {
-
+        topdown: false,
+        raycaster: true,
+        map: false,
+        npcs: false,
+        segments: 256,
+        intersections: true,
+        columns: 'textured',
+        textures: true,
+        shadows: true,
+        adaptive: true
       },
 
       // R
