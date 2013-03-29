@@ -120,6 +120,8 @@
     },
 
     // TODO: wow. refactor.
+    // TODO: move some of the decisions into the renderer.
+    // we shouldn't care here about texture mapping.
 
     trace: function(map, segments) {
       var self = this;
@@ -177,20 +179,28 @@
   // TODO: break this up or make it simpler. Too many arguments. Too much data.
 
   function wallHit(wall, intersection, angle, pAngle, px, py) {
+    var wallRatio;
+
     var dx = intersection.x - px;
     var dy = intersection.y - py;
     var hyp = Math.sqrt(dx * dx + dy * dy);
     var relativeAngle = angle - pAngle;
     var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
-    var wallDx = Math.abs(intersection.x - wall[0]) + NO_DIVIDE_BY_ZERO;
-    var wallDy = Math.abs(intersection.y - wall[1]) + NO_DIVIDE_BY_ZERO;
 
-    // TODO: precompute
-    var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
-    var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
-    var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
-    var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
-    var wallRatio = textureDistance / wallLength;
+    if (wall.mapping === 'position') {
+      var wallDx = Math.abs(intersection.x - wall[0]) + NO_DIVIDE_BY_ZERO;
+      var wallDy = Math.abs(intersection.y - wall[1]) + NO_DIVIDE_BY_ZERO;
+
+      // TODO: precompute
+      var wallTotalX = Math.abs(wall[2] - wall[0]) + NO_DIVIDE_BY_ZERO;
+      var wallTotalY = Math.abs(wall[3] - wall[1]) + NO_DIVIDE_BY_ZERO;
+      var wallLength = Math.sqrt(wallTotalX * wallTotalX + wallTotalY * wallTotalY);
+      var textureDistance = Math.sqrt(wallDx * wallDx + wallDy * wallDy);
+      wallRatio = textureDistance / wallLength;
+    }
+    else if (wall.mapping === 'angle') {
+      wallRatio = 0.5;
+    }
 
     return {
       x: intersection.x,
