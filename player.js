@@ -220,7 +220,7 @@
       dist: dist,
       npc: npc,
       textureRatio: textureRatio,
-      texture: npc.texture
+      texture: npc.getTexture()
     };
   }
 
