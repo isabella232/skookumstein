@@ -17,8 +17,8 @@
   var NO_DIVIDE_BY_ZERO = 0.00001;
 
   var TURN_SPEED = 0.1 * DEG_TO_RAD;
-  var WALK_SPEED = 0.4;
-  var REVERSE_SPEED = 0.2;
+  var WALK_SPEED = 0.3;
+  var REVERSE_SPEED = 0.1;
 
   function Player(x, y, angle) {
     this.setDefaults();

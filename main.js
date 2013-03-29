@@ -16,8 +16,7 @@
     raycaster = new ns.Raycaster(viewport);
     gameloop = new ns.Gameloop();
 
-    //map.npcs.push(new ns.Npc('melissa', 390, 250));
-    map.npcs.push(new ns.Npc('melissa', -100, -200));
+    map.npcs.push(new ns.Npc('melissa', -205, -350));
   }
 
   function start() {

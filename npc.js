@@ -7,7 +7,7 @@
   var CHARACTERS = {
     'melissa': {
       texture: 'melissa2',
-      width: 30,
+      width: 18,
       base: 456
     }
   };
