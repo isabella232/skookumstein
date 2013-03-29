@@ -17,6 +17,7 @@
     gameloop = new ns.Gameloop();
 
     map.npcs.push(new ns.Npc('melissa', -205, -350));
+    map.npcs.push(new ns.Npc('light', -210, -440));
   }
 
   function start() {

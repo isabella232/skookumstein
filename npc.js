@@ -9,6 +9,10 @@
       texture: 'melissa2',
       width: 18,
       base: 456
+    },
+    'light': {
+      texture: 'circle_light',
+      width: 70
     }
   };
 

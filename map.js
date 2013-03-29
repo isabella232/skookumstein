@@ -97,7 +97,8 @@
       'window': 'textures/window.png',
       'desk_side': 'textures/desk_side.png',
       'red_wall': 'textures/red_wall_empty.jpg',
-      'melissa2': 'textures/melissa2.png'
+      'melissa2': 'textures/melissa2.png',
+      'circle_light': 'textures/circle_light.png'
     },
 
     texture: function(name) {

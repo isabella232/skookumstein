@@ -142,7 +142,15 @@
 
       // W
       '119': {
-
+        topdown: false,
+        raycaster: true,
+        map: false,
+        npcs: false,
+        segments: 128,
+        intersections: true,
+        columns: 'textured',
+        textures: true,
+        shadows: true
       },
 
       // E
