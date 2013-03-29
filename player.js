@@ -150,7 +150,7 @@
         while (i--) {
           var npc = npcs[i].getCoords();
           intersection = intersect(x1, y1, x2, y2, npc.x1, npc.y1, npc.x2, npc.y2);
-          if (intersection) hits.push(npcHit(wall, intersection, angle, this.angle, x1, y1, x2, y2));
+          if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, x1, y1, x2, y2));
         }
 
         hits.sort(sortDistance);
