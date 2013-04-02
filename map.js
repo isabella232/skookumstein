@@ -179,6 +179,13 @@
         }
         delete this.walls[i][4];
       }
+    },
+
+    npcsFacePlayer: function(player) {
+      var i = this.npcs.length;
+      while (i--) {
+        this.npcs[i].faceCoords(player.x, player.y);
+      }
     }
 
   };

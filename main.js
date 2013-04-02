@@ -26,6 +26,7 @@
 
   function draw(time) {
     player.step(time);
+    map.npcsFacePlayer(player);
     player.trace(map, ns.Config.segments);
 
     viewport.clear();

@@ -26,12 +26,12 @@
     this.texture = CHARACTERS[character].texture;
     this.width = CHARACTERS[character].width;
 
-    this.buildCoords();
+    this.faceCoords(0, 0);
   }
 
   Npc.prototype = {
 
-    buildCoords: function(px, py) {
+    faceCoords: function(px, py) {
       var angle = RIGHT_ANGLE - Math.atan2(this.x - px, this.y - py);
       var half = this.width * 0.5;
       this[0] = this.x + Math.cos(angle - RIGHT_ANGLE) * half;
