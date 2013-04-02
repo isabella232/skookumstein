@@ -121,22 +121,12 @@
       this._ctx.fillRect(x, y, width + 1, height);
     },
 
-    // TODO: by drawing columns totally independent of a rendering loop,
-    // it's impossible to guarantee that all pixels are filled horizontally
-    // without any overlap... it would be better to create some kind of loop
-    // and pass explicit x and width values into the column drawing routine instead
-    // of index and total
-
-    // TODO: better to pass in the X and WIDTH and use those to derive the angle etc
-
-    textureCol: function(index, total, map, hit) {
-      var x, y, width, height;
+    textureCol: function(x, width, map, hit) {
+      var y, height;
       var sx, sy, sWidth, sHeight;
       var texture, hasShadow;
 
       if (hit.wall) {
-        width = this._el.width / total;
-        x = width * index;
         height = (this._el.height / (hit.dist * SCALE)) * hit.wall.scaleY;
         y = (this._el.height - height) * 0.5;
 
@@ -148,8 +138,6 @@
         sy = 0;
       }
       else if (hit.npc) {
-        width = this._el.width / total;
-        x = width * index;
         height = this._el.height / (hit.dist * SCALE);
         y = (this._el.height - height) * 0.5;
 

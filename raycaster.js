@@ -19,9 +19,12 @@
       if (ns.Config.columns === 'textured') {
         for (i = 0; i < segments; i++) {
           var hits = rays[i].hits;
+          var x = Math.floor(i * rayWidth);
+          var nextX = Math.floor((i + 1) * rayWidth);
+          var screenWidth = nextX - x;
           for (j = hits.length - 1; j >= 0; j--) {
             hit = hits[j];
-            this.viewport.textureCol(i, segments, map, hit);
+            this.viewport.textureCol(x, screenWidth, map, hit);
           }
         }
         return;
