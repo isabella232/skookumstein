@@ -6,7 +6,8 @@
     this.images = {};             // The images that are drawn as the base layers for textures
     this.shadows = {};            // Shadows masked to mimic the transparency of textures
     this.transparency = {};     // Flag telling us whether or not we should paint behind this texture
-    this.preprocess();
+    this.preprocessWalls();
+    this.preprocessTextures();
     this.loadTextures();
   }
 
@@ -69,6 +70,9 @@
       [275, 155, 275, 60, 'red_wall'], // wall to right of black fridge
 
       [275, 60, 325, 60, 'window'], // left kitchen window
+      [275, 61, 325, 61, 'skyline'],
+
+
       [325, 60, 415, 60, 'wall'], // between kitchen window
       [415, 60, 465, 60, 'window'], // right kitchen window
       [465, 60, 465, 155, 'wall'], // East kitchen wall
@@ -98,7 +102,12 @@
       'desk_side': 'textures/desk_side.png',
       'red_wall': 'textures/red_wall_empty.jpg',
       'melissa2': 'textures/melissa2.png',
-      'circle_light': 'textures/circle_light.png'
+      'circle_light': 'textures/circle_light.png',
+      'skyline': {
+        src: 'textures/outside_kitchen.jpg',
+        shadow: false,
+        mapping: 'angular'
+      }
     },
 
     texture: function(name) {
@@ -159,25 +168,27 @@
       }
     },
 
-    // TODO: this feels clunky
-
-    preprocess: function() {
+    preprocessWalls: function() {
       var i = this.walls.length;
       while (i--) {
         this.walls[i][0] = (this.walls[i][0] - this.offX) * this.scaleX;
         this.walls[i][1] = (this.walls[i][1] - this.offY) * this.scaleY;
         this.walls[i][2] = (this.walls[i][2] - this.offX) * this.scaleX;
         this.walls[i][3] = (this.walls[i][3] - this.offY) * this.scaleY;
-        if (typeof this.walls[i][4] === 'object') {
-          this.walls[i].texture = this.walls[i][4].texture;
-          this.walls[i].scaleY = this.walls[i][4].scaleY;
-          this.walls[i].shadow = this.walls[i][4].shadow;
-        } else {
-          this.walls[i].texture = this.walls[i][4];
-          this.walls[i].scaleY = 1;
-          this.walls[i].shadow = true;
-        }
+        this.walls[i].texture = this.walls[i][4];
         delete this.walls[i][4];
+      }
+    },
+
+    preprocessTextures: function() {
+      for (var key in this.textures) {
+        if (typeof this.textures[key] === 'string') {
+          this.textures[key] = {
+            src: this.textures[key],
+            shadow: true,
+            mapping: 'default'
+          };
+        }
       }
     },
 
