@@ -126,28 +126,15 @@
       var sx, sy, sWidth, sHeight;
       var texture, hasShadow;
 
-      if (hit.wall) {
-        height = (this._el.height / (hit.dist * SCALE)) * hit.wall.scaleY;
-        y = (this._el.height - height) * 0.5;
+      height = this._el.height / (hit.dist * SCALE);
+      y = (this._el.height - height) * 0.5;
 
-        texture = map.texture(hit.wall.texture);
-        hasShadow = hit.wall.shadow;
-        sWidth = 1;
-        sHeight = texture.image.height;
-        sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.wallRatio * texture.image.width));
-        sy = 0;
-      }
-      else if (hit.npc) {
-        height = this._el.height / (hit.dist * SCALE);
-        y = (this._el.height - height) * 0.5;
-
-        texture = map.texture(hit.npc.getTexture());
-        hasShadow = hit.npc.shadow;
-        sWidth = 1;
-        sHeight = texture.image.height;
-        sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.textureRatio * texture.image.width));
-        sy = 0;
-      }
+      texture = map.texture(hit.surface.texture);
+      hasShadow = hit.surface.shadow;
+      sWidth = 1;
+      sHeight = texture.image.height;
+      sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.fromLeft * texture.image.width));
+      sy = 0;
 
       if (ns.Config.textures) {
         this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);

@@ -143,14 +143,14 @@
         while (i--) {
           var wall = walls[i];
           intersection = intersect(px, py, rx, ry, wall[0], wall[1], wall[2], wall[3]);
-          if (intersection) hits.push(wallHit(wall, intersection, angle, this.angle, px, py));
+          if (intersection) hits.push(this.hitDetails(wall, intersection, angle));
         }
 
         i = npcs.length;
         while (i--) {
-          var npc = npcs[i].getCoords(px, py);
-          intersection = intersect(px, py, rx, ry, npc.x1, npc.y1, npc.x2, npc.y2);
-          if (intersection) hits.push(npcHit(npcs[i], intersection, angle, this.angle, px, py, npc.x1, npc.y1));
+          var npc = npcs[i];
+          intersection = intersect(px, py, rx, ry, npc[0], npc[1], npc[2], npc[3]);
+          if (intersection) hits.push(this.hitDetails(npc, intersection, angle));
         }
 
         hits.sort(sortDistance);
@@ -170,9 +170,40 @@
       function sortDistance(a, b) {
         return a.dist - b.dist;
       }
+    },
+
+    hitDetails: function(surface, intersection, angle) {
+
+      // compute distance from player
+
+      var dx = intersection.x - this.x;
+      var dy = intersection.y - this.y;
+      var hyp = Math.sqrt(dx * dx + dy * dy);
+      var relativeAngle = angle - this.angle;
+      var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
+
+      // compute distance from left edge of wall
+
+      var surfaceDx = Math.abs(intersection.x - surface[0]) + NO_DIVIDE_BY_ZERO;
+      var surfaceDy = Math.abs(intersection.y - surface[1]) + NO_DIVIDE_BY_ZERO;
+      var surfaceTotalX = Math.abs(surface[2] - surface[0]) + NO_DIVIDE_BY_ZERO;
+      var surfaceTotalY = Math.abs(surface[3] - surface[1]) + NO_DIVIDE_BY_ZERO;
+      var surfaceLength = Math.sqrt(surfaceTotalX * surfaceTotalX + surfaceTotalY * surfaceTotalY);
+      var textureDistance = Math.sqrt(surfaceDx * surfaceDx + surfaceDy * surfaceDy);
+      var surfaceRatio = textureDistance / surfaceLength;
+
+      return {
+        x: intersection.x,
+        y: intersection.y,
+        dist: dist,
+        surface: surface,
+        fromLeft: surfaceRatio,
+        texture: surface.texture
+      };
     }
 
   };
+
 
   // TODO: break this up or make it simpler. Too many arguments. Too much data.
 
