@@ -2,7 +2,8 @@
 
   var ns = window[namespace] = window[namespace] || {};
 
-  var SCALE = 0.011; // depth ratio (larger = spaces look wider / deeper and vertically flatter / more squashed)
+  var DEFAULT_SCALE = 0.011; // depth ratio (larger = spaces look wider / deeper and vertically flatter / more squashed)
+  var ANGULAR_SCALE = 0.03;
   var CEILING_COLOR = '#9c8f73';
   var FLOOR_COLOR = '#531';
 
@@ -97,7 +98,7 @@
       if (distance === Infinity) return;
       var width = this._el.width / total;
       var x = width * index;
-      var height = this._el.height / (distance * SCALE);
+      var height = this._el.height / (distance * DEFAULT_SCALE);
       var y = (this._el.height - height) * 0.5;
 
       this._ctx.strokeStyle = '#000';
@@ -113,7 +114,7 @@
       if (distance === Infinity) return;
       var width = this._el.width / total;
       var x = width * index;
-      var height = this._el.height / (distance * SCALE);
+      var height = this._el.height / (distance * DEFAULT_SCALE);
       var y = (this._el.height - height) * 0.5;
       var bright = Math.floor(255 * Math.max(0, Math.min(1, height / this._el.height)));
 
@@ -133,7 +134,7 @@
 
       // destination rect
 
-      height = this._el.height / (hit.dist * SCALE);
+      height = this._el.height / (hit.dist * DEFAULT_SCALE);
       y = (this._el.height - height) * 0.5;
 
       // source rect
@@ -146,8 +147,7 @@
       }
       else if (texture.mapping === 'angular') {
         sWidth = 1;
-        sHeight = Math.floor(texture.image.height / ((1 + hit.dist) * SCALE));
-        //if (texture.image.height < sHeight) console.log(sHeight, '>', texture.image.height);
+        sHeight = Math.min(texture.image.height, texture.image.height / (hit.dist * ANGULAR_SCALE));
         sx = (hit.fromAngle / Math.PI) * texture.image.width;
         sy = (texture.image.height - sHeight) * 0.5;
       }
