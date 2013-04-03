@@ -83,32 +83,36 @@
 
     step: function(time) {
       var dx, dy;
+      var nextX = this.x;
+      var nextY = this.y;
       if (this.turningLeft) this.angle -= TURN_SPEED * time;
       if (this.turningRight) this.angle += TURN_SPEED * time;
       if (this.walking) {
         dx = Math.cos(this.angle) * WALK_SPEED * time;
         dy = Math.sin(this.angle) * WALK_SPEED * time;
-        this.x += dx;
-        this.y += dy;
+        nextX += dx;
+        nextY += dy;
       }
       if (this.reversing) {
         dx = Math.cos(this.angle) * -REVERSE_SPEED * time;
         dy = Math.sin(this.angle) * -REVERSE_SPEED * time;
-        this.x += dx;
-        this.y += dy;
+        nextX += dx;
+        nextY += dy;
       }
       if (this.strafeLeft) {
         dx = Math.cos(this.angle - RIGHT_ANGLE) * REVERSE_SPEED * time;
         dy = Math.sin(this.angle - RIGHT_ANGLE) * REVERSE_SPEED * time;
-        this.x += dx;
-        this.y += dy;
+        nextX += dx;
+        nextY += dy;
       }
       if (this.strafeRight) {
         dx = Math.cos(this.angle + RIGHT_ANGLE) * REVERSE_SPEED * time;
         dy = Math.sin(this.angle + RIGHT_ANGLE) * REVERSE_SPEED * time;
-        this.x += dx;
-        this.y += dy;
+        nextX += dx;
+        nextY += dy;
       }
+      this.x = nextX;
+      this.y = nextY;
     },
 
     ray: function(progress) {

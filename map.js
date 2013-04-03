@@ -9,6 +9,7 @@
     this.preprocessWalls();
     this.preprocessTextures();
     this.loadTextures();
+    console.log(this.textures);
   }
 
   Map.prototype = {
@@ -109,7 +110,7 @@
       'circle_light': 'textures/circle_light.png',
       'skyline': {
         src: 'textures/outside_kitchen.jpg',
-        shadow: false,
+        hasShadow: false,
         mapping: 'angular'
       }
     },
@@ -119,7 +120,8 @@
         image: this.images[name],
         shadow: this.shadows[name],
         transparent: this.transparency[name],
-        mapping: this.textures[name].mapping
+        mapping: this.textures[name].mapping,
+        hasShadow: this.textures[name].hasShadow
       };
     },
 
@@ -190,7 +192,7 @@
         if (typeof this.textures[key] === 'string') {
           this.textures[key] = {
             src: this.textures[key],
-            shadow: true,
+            hasShadow: true,
             mapping: 'default'
           };
         }
