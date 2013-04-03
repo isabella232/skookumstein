@@ -146,9 +146,9 @@
       }
       else if (texture.mapping === 'angular') {
         sWidth = 1;
-        sHeight = texture.image.height;
-        sx = Math.floor((hit.fromAngle / Math.PI) * texture.image.width);
-        sy = 0;
+        sHeight = texture.image.height / ((1 + hit.dist) * SCALE);
+        sx = (hit.fromAngle / Math.PI) * texture.image.width;
+        sy = (texture.image.height - sHeight) * 0.5;
       }
 
       // draw the base texture
