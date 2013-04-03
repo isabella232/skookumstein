@@ -70,7 +70,7 @@
       [275, 155, 275, 60, 'red_wall'], // wall to right of black fridge
 
       [275, 60, 325, 60, 'window'], // left kitchen window
-      [275, 61, 325, 61, 'skyline'],
+      [275, 59, 325, 59, 'skyline'],
 
 
       [325, 60, 415, 60, 'wall'], // between kitchen window
@@ -139,7 +139,7 @@
       var newImage = this.images[key] = document.createElement('image');
 
       newImage.onload = drawShadow;
-      newImage.src = this.textures[key];
+      newImage.src = this.textures[key].src;
 
       function drawShadow() {
         var canvas = document.createElement('canvas');
