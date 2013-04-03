@@ -172,6 +172,9 @@
       }
     },
 
+    // TODO: possibly speed this up by only calculating `fromLeft` for 'default' surfaces
+    // and only calculating `fromAngle` for 'angular' surfaces
+
     hitDetails: function(surface, intersection, angle) {
 
       // compute distance from player
@@ -183,6 +186,7 @@
       var dist = hyp * Math.sin(RIGHT_ANGLE - relativeAngle);
 
       // compute distance from left edge of wall
+      // TODO: precompute widths for all surfaces
 
       var surfaceDx = Math.abs(intersection.x - surface[0]) + NO_DIVIDE_BY_ZERO;
       var surfaceDy = Math.abs(intersection.y - surface[1]) + NO_DIVIDE_BY_ZERO;
@@ -193,6 +197,10 @@
       var surfaceRatio = textureDistance / surfaceLength;
 
       // compute incident angle between ray and surface
+      // TODO: precompute normals for all surfaces
+
+      var surfaceAngle = Math.atan2(surfaceDy, surfaceDx);
+      var incident = Math.abs(angle - surfaceAngle);
 
       return {
         x: intersection.x,
@@ -201,7 +209,7 @@
         surface: surface,
         fromLeft: surfaceRatio,
         texture: surface.texture,
-        angle: 0
+        fromAngle: incident
       };
     }
 

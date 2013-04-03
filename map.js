@@ -70,12 +70,10 @@
       [275, 155, 275, 60, 'red_wall'], // wall to right of black fridge
 
       [275, 60, 325, 60, 'window'], // left kitchen window
-      [275, 59, 325, 59, 'skyline'],
-
-
       [325, 60, 415, 60, 'wall'], // between kitchen window
       [415, 60, 465, 60, 'window'], // right kitchen window
       [465, 60, 465, 155, 'wall'], // East kitchen wall
+      [275, 59, 465, 59, 'skyline'], // skyline behind kitchen windows
 
       [400, 230, 425, 230, 'desk_side'],  // right side of Melissa's desk
       [440, 250, 440, 300, 'desk_side'],  // left side of Melissa's desk
