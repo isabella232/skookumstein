@@ -21,6 +21,7 @@
     scaleY: 1,
 
     npcs: [],
+    doors: [],
 
     walls: [
       [275, 305, 275, 375, 'wood_wall'], // outside fake enclosure left
@@ -67,10 +68,7 @@
       [270, 60, 270, 160, 'wall'], // right conference room East wall
 
       [275, 230, 240, 195, 'door_opening'], // door to design room
-      [266, 221, 250, 205, 'door'], // door to design room
-
       [240, 195, 275, 160, 'door_opening'], // door to conference room
-      [250, 185, 265, 170, 'door'], // door to conference room
 
       [275, 160, 335, 160, 'wall'], // left wall isBlocking kitchen
       [335, 160, 335, 155, 'wall'], // left wall isBlocking kitchen side

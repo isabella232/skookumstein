@@ -5,6 +5,7 @@
 
   var RAY_DISTANCE = 1500;
   var RIGHT_ANGLE = Math.PI * 0.5;
+  var FULL_CIRCLE = Math.PI * 2;
 
   var KEY_LEFT = 37;
   var KEY_UP = 38;
@@ -85,8 +86,16 @@
       var dx, dy;
       var nextX = this.x;
       var nextY = this.y;
+
+      // rotate
+
       if (this.turningLeft) this.angle -= TURN_SPEED * time;
       if (this.turningRight) this.angle += TURN_SPEED * time;
+      if (this.angle > FULL_CIRCLE) this.angle -= FULL_CIRCLE;
+      if (this.angle < 0) this.angle += FULL_CIRCLE;
+
+      // walk
+
       if (this.walking) {
         dx = Math.cos(this.angle) * WALK_SPEED * time;
         dy = Math.sin(this.angle) * WALK_SPEED * time;
@@ -99,6 +108,9 @@
         nextX += dx;
         nextY += dy;
       }
+
+      // strafe
+
       if (this.strafeLeft) {
         dx = Math.cos(this.angle - RIGHT_ANGLE) * REVERSE_SPEED * time;
         dy = Math.sin(this.angle - RIGHT_ANGLE) * REVERSE_SPEED * time;
@@ -114,6 +126,8 @@
 
       if (nextX === this.x && nextY === this.y) return;
 
+      // collide with walls
+
       var walls = map.walls;
       var intersection;
       var i = walls.length;
@@ -125,7 +139,6 @@
           if (intersection) return;
         }
       }
-
 
       this.x = nextX;
       this.y = nextY;
