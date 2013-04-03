@@ -54,8 +54,14 @@
       [110, 210, 220, 210, 'wall'], // left conference room North wall
       [220, 210, 240, 190, 'wall'], // left conference room door diagonal wall
 
-      [110, 60, 110, 210, 'wall'], // right conference room West wall
-      [110, 60, 270, 60, 'wall'], // right conference room North wall
+      [105, 85, 130, 85, 'wall'], // right conference room West wall NW column
+      [130, 85, 130, 60, 'wall'], // right conference room North wall column section
+      [130, 60, 175, 60, 'window'], // right conference room North wall 1st window
+      [175, 60, 205, 60, 'wall'], // right conference room North wall 1st section
+      [205, 60, 250, 60, 'window'], // right conference room North wall 2nd window
+      [250, 60, 270, 60, 'wall'], // right conference room North wall 2nd section
+      [130, 59, 250, 59, 'skyline'], // right conference room North wall skyline
+
       [270, 60, 270, 160, 'wall'], // right conference room East wall
 
       [275, 225, 240, 190, 'door'], // door to design room
