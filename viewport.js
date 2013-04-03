@@ -7,6 +7,7 @@
   var CEILING_COLOR = '#9c8f73';
   var FLOOR_COLOR = '#531';
   var LIGHT_DISTANCE = 1.5;
+  var SHADOW_LEVEL = 1.5;
 
   function Viewport(canvasElement) {
     this._el = canvasElement;
@@ -162,7 +163,7 @@
       // draw the shadow overlay
 
       if (hasShadow) {
-        var shadowLevel = 1 - Math.max(0, Math.min(1, (height / this._el.height) * LIGHT_DISTANCE));
+        var shadowLevel = SHADOW_LEVEL * (1 - Math.max(0, Math.min(1, (height / this._el.height) * LIGHT_DISTANCE)));
         this._ctx.globalAlpha = shadowLevel;
         this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
         this._ctx.globalAlpha = 1;

@@ -127,19 +127,22 @@
         nextY += dy;
       }
 
-      if (nextX === this.x && nextY === this.y) return;
+      var noMovement = (nextX === this.x && nextY === this.y);
+      if (noMovement) return;
 
       // collide with walls
 
-      var walls = map.walls;
-      var intersection;
-      var i = walls.length;
-      while (i--) {
-        var wall = walls[i];
-        var texture = map.texture(wall.texture);
-        if (texture.isBlocking) {
-          intersection = intersect(this.x, this.y, nextX, nextY, wall[0], wall[1], wall[2], wall[3]);
-          if (intersection) return;
+      if (ns.Config.collisions) {
+        var walls = map.walls;
+        var intersection;
+        var i = walls.length;
+        while (i--) {
+          var wall = walls[i];
+          var texture = map.texture(wall.texture);
+          if (texture.isBlocking) {
+            intersection = intersect(this.x, this.y, nextX, nextY, wall[0], wall[1], wall[2], wall[3]);
+            if (intersection) return;
+          }
         }
       }
 

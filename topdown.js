@@ -4,6 +4,7 @@
 
   var PLAYER_COLOR = '#f44';
   var WALL_COLOR = '#fff';
+  var DOOR_COLOR = '#00f';
 
   function Topdown(viewport) {
     this.viewport = viewport;
@@ -33,7 +34,13 @@
       var wall;
       while (i--) {
         wall = map.walls[i];
-        this.viewport.line(wall[0] * this.scaleX, wall[1] * this.scaleY, wall[2] * this.scaleX, wall[3] * this.scaleY, WALL_COLOR);
+        var texture = map.texture(wall.texture);
+        if (texture.isBlocking) {
+          this.viewport.line(wall[0] * this.scaleX, wall[1] * this.scaleY, wall[2] * this.scaleX, wall[3] * this.scaleY, WALL_COLOR);
+        }
+        else {
+          this.viewport.line(wall[0] * this.scaleX, wall[1] * this.scaleY, wall[2] * this.scaleX, wall[3] * this.scaleY, DOOR_COLOR);
+        }
       }
       this.viewport.drawCenter();
     },

@@ -20,7 +20,8 @@
         intersections: false,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: false
       },
 
       // 2
@@ -33,7 +34,8 @@
         intersections: false,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 3
@@ -46,7 +48,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 4
@@ -59,7 +62,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 5
@@ -72,7 +76,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 6
@@ -85,7 +90,8 @@
         intersections: true,
         columns: 'flat',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 7
@@ -98,7 +104,8 @@
         intersections: true,
         columns: 'deep',
         textures: false,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 8
@@ -111,7 +118,8 @@
         intersections: true,
         columns: 'textured',
         textures: true,
-        shadows: false
+        shadows: false,
+        collisions: true
       },
 
       // 9
@@ -124,7 +132,8 @@
         intersections: true,
         columns: 'textured',
         textures: false,
-        shadows: true
+        shadows: true,
+        collisions: true
       },
 
       // Q
@@ -137,7 +146,8 @@
         intersections: true,
         columns: 'textured',
         textures: true,
-        shadows: true
+        shadows: true,
+        collisions: true
       },
 
       // W
@@ -150,7 +160,8 @@
         intersections: true,
         columns: 'textured',
         textures: true,
-        shadows: true
+        shadows: true,
+        collisions: true
       },
 
       // E
