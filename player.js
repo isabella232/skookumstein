@@ -119,8 +119,11 @@
       var i = walls.length;
       while (i--) {
         var wall = walls[i];
-        intersection = intersect(this.x, this.y, nextX, nextY, wall[0], wall[1], wall[2], wall[3]);
-        if (intersection) return;
+        var texture = map.texture(wall.texture);
+        if (texture.isBlocking) {
+          intersection = intersect(this.x, this.y, nextX, nextY, wall[0], wall[1], wall[2], wall[3]);
+          if (intersection) return;
+        }
       }
 
 

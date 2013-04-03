@@ -1,3 +1,5 @@
+// TODO: add underscore.js for a lot of this default object bundle / override stuff
+
 (function(namespace) {
 
   var ns = window[namespace] = window[namespace] || {};
@@ -9,7 +11,6 @@
     this.preprocessWalls();
     this.preprocessTextures();
     this.loadTextures();
-    console.log(this.textures);
   }
 
   Map.prototype = {
@@ -47,7 +48,7 @@
       [375, 225, 370, 225, 'red_wall'], // side edge of lounge on left
       [370, 225, 370, 300, 'red_wall'],  // left wall of lounge
       [370, 300, 275, 300, 'charlotte_poster'], // back wall of lounge
-      [275, 300, 275, 225, 'tv'], // tv in lounge
+      [275, 300, 275, 230, 'tv'], // tv in lounge
 
       [270, 300, 270, 225, 'wall'], // left conference room East wall
       [110, 300, 270, 300, 'wall'], // left conference room South wall
@@ -65,12 +66,15 @@
 
       [270, 60, 270, 160, 'wall'], // right conference room East wall
 
-      [275, 225, 240, 190, 'door'], // door to design room
-      [240, 190, 275, 160, 'door'], // door to conference room
+      [275, 230, 240, 195, 'door_opening'], // door to design room
+      [266, 221, 250, 205, 'door'], // door to design room
 
-      [275, 160, 335, 160, 'wall'], // left wall blocking kitchen
-      [335, 160, 335, 155, 'wall'], // left wall blocking kitchen side
-      [335, 155, 275, 155, 'wall'], // left wall blocking kitchen inner
+      [240, 195, 275, 160, 'door_opening'], // door to conference room
+      [250, 185, 265, 170, 'door'], // door to conference room
+
+      [275, 160, 335, 160, 'wall'], // left wall isBlocking kitchen
+      [335, 160, 335, 155, 'wall'], // left wall isBlocking kitchen side
+      [335, 155, 275, 155, 'wall'], // left wall isBlocking kitchen inner
 
       [300, 155, 300, 125, 'fridge1_front'], // front of black fridge
       [300, 125, 275, 125, 'fridge1_side'], // side of black fridge
@@ -100,6 +104,12 @@
       'red_wall_boxes': 'textures/red_wall.jpg',
       'charlotte_poster': 'textures/charlotte_poster_wall.jpg',
       'tv': 'textures/tv_wall.jpg',
+      'door_opening': {
+        src: 'textures/door_opening.png',
+        hasShadow: true,
+        mapping: 'default',
+        isBlocking: false
+      },
       'door': 'textures/door.png',
       'fridge1_front': 'textures/fridge1.png',
       'fridge1_side': 'textures/fridge1_side.png',
@@ -111,7 +121,8 @@
       'skyline': {
         src: 'textures/outside_kitchen.jpg',
         hasShadow: false,
-        mapping: 'angular'
+        mapping: 'angular',
+        isBlocking: false
       }
     },
 
@@ -121,7 +132,8 @@
         shadow: this.shadows[name],
         transparent: this.transparency[name],
         mapping: this.textures[name].mapping,
-        hasShadow: this.textures[name].hasShadow
+        hasShadow: this.textures[name].hasShadow,
+        isBlocking: this.textures[name].isBlocking
       };
     },
 
@@ -193,7 +205,8 @@
           this.textures[key] = {
             src: this.textures[key],
             hasShadow: true,
-            mapping: 'default'
+            mapping: 'default',
+            isBlocking: true
           };
         }
       }
