@@ -81,7 +81,7 @@
         });
     },
 
-    step: function(time) {
+    step: function(time, map) {
       var dx, dy;
       var nextX = this.x;
       var nextY = this.y;
@@ -111,6 +111,19 @@
         nextX += dx;
         nextY += dy;
       }
+
+      if (nextX === this.x && nextY === this.y) return;
+
+      var walls = map.walls;
+      var intersection;
+      var i = walls.length;
+      while (i--) {
+        var wall = walls[i];
+        intersection = intersect(this.x, this.y, nextX, nextY, wall[0], wall[1], wall[2], wall[3]);
+        if (intersection) return;
+      }
+
+
       this.x = nextX;
       this.y = nextY;
     },

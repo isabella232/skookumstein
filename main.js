@@ -25,7 +25,7 @@
   }
 
   function draw(time) {
-    player.step(time);
+    player.step(time, map);
     map.npcsFacePlayer(player);
     player.trace(map, ns.Config.segments);
 
