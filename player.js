@@ -152,16 +152,18 @@
       };
     },
 
-    // TODO: wow. refactor.
-
     trace: function(map, segments) {
       var self = this;
+
       var walls = map.walls;
+      var doors = map.doors;
       var npcs = map.npcs;
-      var intersections = [];
+
       var a0 = this.angle - this.fov * 0.5;
       var da = this.fov / segments;
       var a1 = this.angle + this.fov * 0.5 + 0.01;
+
+      var intersections = [];
 
       for (var angle = a0; angle <= a1; angle += da) {
         var hits = [];
@@ -172,12 +174,25 @@
         var ry = this.y + Math.sin(angle) * RAY_DISTANCE;
         var i;
 
+        // walls
+
         i = walls.length;
         while (i--) {
           var wall = walls[i];
           intersection = intersect(px, py, rx, ry, wall[0], wall[1], wall[2], wall[3]);
           if (intersection) hits.push(this.hitDetails(wall, intersection, angle));
         }
+
+        // doors
+
+        i = doors.length;
+        while (i--) {
+          var door = doors[i];
+          intersection = intersect(px, py, rx, ry, door[0], door[1], door[2], door[3]);
+          if (intersection) hits.push(this.hitDetails(door, intersection, angle));
+        }
+
+        // npcs
 
         i = npcs.length;
         while (i--) {

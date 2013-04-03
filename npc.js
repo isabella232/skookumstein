@@ -22,7 +22,6 @@
     this.x = x;
     this.y = y;
 
-    this.shadow = true;
     this.texture = CHARACTERS[character].texture;
     this.width = CHARACTERS[character].width;
 

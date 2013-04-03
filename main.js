@@ -18,6 +18,9 @@
 
     map.npcs.push(new ns.Npc('melissa', -205, -350));
     map.npcs.push(new ns.Npc('light', -210, -440));
+
+    map.doors.push(new ns.Door('door', 'left', 266, 221, 250, 205)); // door to design room
+    map.doors.push(new ns.Door('door', 'left', 250, 185, 265, 170)); // door to conference room
   }
 
   function start() {
