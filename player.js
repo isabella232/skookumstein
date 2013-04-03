@@ -192,13 +192,16 @@
       var textureDistance = Math.sqrt(surfaceDx * surfaceDx + surfaceDy * surfaceDy);
       var surfaceRatio = textureDistance / surfaceLength;
 
+      // compute incident angle between ray and surface
+
       return {
         x: intersection.x,
         y: intersection.y,
         dist: dist,
         surface: surface,
         fromLeft: surfaceRatio,
-        texture: surface.texture
+        texture: surface.texture,
+        angle: 0
       };
     }
 

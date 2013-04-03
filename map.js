@@ -114,7 +114,8 @@
       return {
         image: this.images[name],
         shadow: this.shadows[name],
-        transparent: this.transparency[name]
+        transparent: this.transparency[name],
+        mapping: this.textures[name].mapping
       };
     },
 

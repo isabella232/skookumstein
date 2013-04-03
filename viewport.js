@@ -2,7 +2,7 @@
 
   var ns = window[namespace] = window[namespace] || {};
 
-  var SCALE = 0.01;
+  var SCALE = 0.011; // depth ratio (larger = spaces look wider / deeper and vertically flatter / more squashed)
   var CEILING_COLOR = '#9c8f73';
   var FLOOR_COLOR = '#531';
 
@@ -126,21 +126,40 @@
       var sx, sy, sWidth, sHeight;
       var texture, hasShadow;
 
+      // texture and shadow
+
+      texture = map.texture(hit.surface.texture);
+      hasShadow = ns.Config.shadows && hit.surface.shadow && texture.shadow;
+
+      // destination rect
+
       height = this._el.height / (hit.dist * SCALE);
       y = (this._el.height - height) * 0.5;
 
-      texture = map.texture(hit.surface.texture);
-      hasShadow = hit.surface.shadow;
-      sWidth = 1;
-      sHeight = texture.image.height;
-      sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.fromLeft * texture.image.width));
-      sy = 0;
+      // source rect
+
+      if (texture.mapping === 'default') {
+        sWidth = 1;
+        sHeight = texture.image.height;
+        sx = Math.min(texture.image.width - sWidth, Math.max(0, hit.fromLeft * texture.image.width));
+        sy = 0;
+      }
+      else if (texture.mapping === 'angular') {
+        sWidth = 1;
+        sHeight = texture.image.height;
+        sx = Math.floor((hit.angle / Math.PI) * texture.image.width);
+        sy = 0;
+      }
+
+      // draw the base texture
 
       if (ns.Config.textures) {
         this._ctx.drawImage(texture.image, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
       }
 
-      if (ns.Config.shadows && texture.shadow && hasShadow) {
+      // draw the shadow overlay
+
+      if (hasShadow) {
         var shadowLevel = 1 - Math.max(0, Math.min(1, height / this._el.height));
         this._ctx.globalAlpha = shadowLevel;
         this._ctx.drawImage(texture.shadow, sx, sy, sWidth, sHeight, x - 1, y, width + 2, height);
