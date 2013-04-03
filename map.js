@@ -63,7 +63,6 @@
       [175, 60, 205, 60, 'wall'], // right conference room North wall 1st section
       [205, 60, 250, 60, 'window'], // right conference room North wall 2nd window
       [250, 60, 270, 60, 'wall'], // right conference room North wall 2nd section
-      [130, 59, 250, 59, 'skyline'], // right conference room North wall skyline
 
       [270, 60, 270, 160, 'wall'], // right conference room East wall
 
@@ -82,7 +81,8 @@
       [325, 60, 415, 60, 'wall'], // between kitchen window
       [415, 60, 465, 60, 'window'], // right kitchen window
       [465, 60, 465, 155, 'wall'], // East kitchen wall
-      [275, 59, 465, 59, 'skyline'], // skyline behind kitchen windows
+
+      [130, 59, 465, 59, 'skyline'], // North skyline
 
       [400, 230, 425, 230, 'desk_side'],  // right side of Melissa's desk
       [440, 250, 440, 300, 'desk_side'],  // left side of Melissa's desk
