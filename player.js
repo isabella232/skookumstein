@@ -3,6 +3,9 @@
 
   var ns = window[namespace] = window[namespace] || {};
 
+  var OFF_X = 600;
+  var OFF_Y = 600;
+
   var RAY_DISTANCE = 1500;
   var RIGHT_ANGLE = Math.PI * 0.5;
   var FULL_CIRCLE = Math.PI * 2;
@@ -23,8 +26,8 @@
 
   function Player(x, y, angle) {
     this.setDefaults();
-    this.x = x;
-    this.y = y;
+    this.x = x - OFF_X;
+    this.y = y - OFF_Y;
     this.angle = angle * DEG_TO_RAD;
     this.listen();
   }

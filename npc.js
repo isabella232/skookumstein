@@ -3,6 +3,8 @@
   var ns = window[namespace] = window[namespace] || {};
 
   var RIGHT_ANGLE = Math.PI * 0.5;
+  var OFF_X = 600;
+  var OFF_Y = 600;
 
   var CHARACTERS = {
     'melissa': {
@@ -19,8 +21,8 @@
 
   function Npc(character, x, y) {
     this._character = character;
-    this.x = x;
-    this.y = y;
+    this.x = x - OFF_X;
+    this.y = y - OFF_Y;
 
     this.texture = CHARACTERS[character].texture;
     this.width = CHARACTERS[character].width;

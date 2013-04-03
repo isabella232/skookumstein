@@ -210,10 +210,17 @@
       }
     },
 
-    npcsFacePlayer: function(player) {
+    faceNpcsTowards: function(x, y) {
       var i = this.npcs.length;
       while (i--) {
-        this.npcs[i].faceCoords(player.x, player.y);
+        this.npcs[i].faceCoords(x, y);
+      }
+    },
+
+    openDoorsNear: function(x, y) {
+      var i = this.doors.length;
+      while (i--) {
+        this.doors[i].openNear(x, y);
       }
     }
 
