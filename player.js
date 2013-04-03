@@ -201,6 +201,7 @@
 
       var surfaceAngle = Math.atan2(surfaceDy, surfaceDx);
       var incident = Math.abs(angle - surfaceAngle);
+      if (incident > Math.PI) incident -= Math.PI;
 
       return {
         x: intersection.x,

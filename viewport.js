@@ -146,7 +146,8 @@
       }
       else if (texture.mapping === 'angular') {
         sWidth = 1;
-        sHeight = texture.image.height / ((1 + hit.dist) * SCALE);
+        sHeight = Math.floor(texture.image.height / ((1 + hit.dist) * SCALE));
+        //if (texture.image.height < sHeight) console.log(sHeight, '>', texture.image.height);
         sx = (hit.fromAngle / Math.PI) * texture.image.width;
         sy = (texture.image.height - sHeight) * 0.5;
       }
