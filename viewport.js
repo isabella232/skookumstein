@@ -32,8 +32,8 @@
 
     resize: function() {
       this._$el.attr({
-        width: this._$win.width(),
-        height: this._$win.height()
+        width: this._$el.width(),
+        height: this._$el.height()
       });
       this._ox = this._el.width * 0.5;
       this._oy = this._el.height * 0.5;
@@ -47,17 +47,16 @@
     },
 
     clear: function() {
-      if (ns.Config.raycaster) {
-        var grad = this._ctx.createLinearGradient(0, 0, 0, this._el.height);
-        grad.addColorStop(0, CEILING_COLOR);
-        grad.addColorStop(0.5, '#000');
-        grad.addColorStop(1, FLOOR_COLOR);
-        this._ctx.fillStyle = grad;
-        this._ctx.fillRect(0, 0, this._el.width, this._el.height);
-      }
-      else {
-        this._ctx.clearRect(0, 0, this._el.width, this._el.height);
-      }
+      this._ctx.clearRect(0, 0, this._el.width, this._el.height);
+    },
+
+    drawDistance: function() {
+      var grad = this._ctx.createLinearGradient(0, 0, 0, this._el.height);
+      grad.addColorStop(0, CEILING_COLOR);
+      grad.addColorStop(0.5, '#000');
+      grad.addColorStop(1, FLOOR_COLOR);
+      this._ctx.fillStyle = grad;
+      this._ctx.fillRect(0, 0, this._el.width, this._el.height);
     },
 
     circle: function(x, y, r, color) {

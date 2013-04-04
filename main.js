@@ -3,17 +3,23 @@
 
   var ns = window[namespace] = window[namespace] || {};
 
-  var player, viewport, map, topdown, raycaster, gameloop, config;
+  var mapView, topdown;
+  var playerView, raycaster;
+  var player, map;
+  var gameloop, config;
 
   setup();
   start();
 
   function setup() {
+    mapView = new ns.Viewport(document.getElementById('map'));
+    playerView = new ns.Viewport(document.getElementById('viewport'));
+
     player = new ns.Player(500, 450, -90);
-    viewport = new ns.Viewport(document.getElementById('viewport'));
     map = new ns.Map();
-    topdown = new ns.Topdown(viewport);
-    raycaster = new ns.Raycaster(viewport);
+
+    topdown = new ns.Topdown(mapView);
+    raycaster = new ns.Raycaster(playerView);
     gameloop = new ns.Gameloop();
 
     map.npcs.push(new ns.Npc('melissa', 395, 250));
@@ -33,10 +39,13 @@
     map.openDoorsNear(player.x, player.y);
     player.trace(map, ns.Config.segments);
 
-    viewport.clear();
+    mapView.clear();
+    playerView.drawDistance();
+
     raycaster.render(map, player.intersections);
     topdown.render(player, map, player.intersections);
-    viewport.drawFps(gameloop.fps);
+
+    playerView.drawFps(gameloop.fps);
   }
 
 })('skookum');
