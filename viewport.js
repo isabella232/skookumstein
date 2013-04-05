@@ -70,10 +70,10 @@
     },
 
     line: function(x0, y0, x1, y1, color) {
-      x0 += this._ox;
-      y0 += this._oy;
-      x1 += this._ox;
-      y1 += this._oy;
+      x0 = Math.floor(x0 + this._ox);
+      y0 = Math.floor(y0 + this._oy);
+      x1 = Math.floor(x1 + this._ox);
+      y1 = Math.floor(y1 + this._oy);
       this._ctx.strokeStyle = color;
       this._ctx.strokeWidth = 3;
       this._ctx.beginPath();
