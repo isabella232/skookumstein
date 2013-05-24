@@ -8,8 +8,8 @@
 
   function Topdown(viewport) {
     this.viewport = viewport;
-    this.scaleX = 1;
-    this.scaleY = 1;
+    this.scaleX = 0.7;
+    this.scaleY = 0.7;
   }
 
   Topdown.prototype = {
