@@ -3,7 +3,7 @@
   var ns = window[namespace] = window[namespace] || {};
 
   function Config() {
-    this.loadBundle('119');
+    this.loadBundle('49');
     this.listen();
   }
 
