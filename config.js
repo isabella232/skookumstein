@@ -103,9 +103,9 @@
       // 7 - Walls (3d, flat, smooth)
 
       '55': {
-        topdown: false,
+        topdown: true,
         raycaster: true,
-        map: false,
+        map: true,
         npcs: false,
         segments: 128,
         intersections: true,
